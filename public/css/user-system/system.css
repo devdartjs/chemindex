@@ -1,0 +1,98 @@
+.service-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px; /* Espaçamento entre as boxes */
+    margin-top: 5em;
+    margin-bottom: 3em;
+}
+
+.service {
+    background: rgba(211, 211, 211, 0.441); /* Fundo escuro para cada serviço */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 30px; /* Aumentado o padding interno */
+    width: 350px; /* Aumentado a largura das caixas */
+    height: 400px; /* Aumentado a altura das caixas */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.service h3 {
+    font-size: 1.8rem; /* Aumentado o tamanho da fonte dos títulos */
+    color:  rgba(64, 64, 232, 0.94); /* Cor da fonte branco */
+    margin-bottom: 15px; /* Aumentado o espaço abaixo dos títulos */
+    margin-bottom: 1em;
+    font-family: Manrope, arial;
+}
+
+.service p {
+    font-size: 1.2rem; /* Aumentado o tamanho da fonte do texto */
+    color: rgba(21, 20, 20, 0.445); /* Cor da fonte cinza claro para o texto */
+    font-family: Work sans, arial;
+}
+
+.icon{
+    width: 100px;
+    height: 100px;
+    margin-top: 2em;
+}
+
+
+.update-button, .register-button{
+font-family: Work sans, arial;
+font-size: 25px;
+padding: 5px 15px;
+border-radius: 5px;
+border-style: none;
+box-shadow: 0 0 5px black;
+margin-top: 1em;
+background-color:  rgba(64, 64, 232, 0.94);
+color: white;
+font-weight: 500;
+width: 100%;
+
+}
+
+.update-button:hover{
+box-shadow: 0 0 7px black; 
+opacity: 0.95;
+}
+
+.update-button:active{
+box-shadow: 0 0 0px black; 
+color: rgba(64, 64, 232, 0.94);
+background-color: aliceblue;
+border: 1px solid  rgba(64, 64, 232, 0.94);
+}
+
+.register-button:hover{
+box-shadow: 0 0 7px black; 
+opacity: 0.95;
+}
+
+.register-button:active{
+box-shadow: 0 0 0px black; 
+color: rgba(64, 64, 232, 0.94);
+background-color: aliceblue;
+border: 1px solid  rgba(64, 64, 232, 0.94);
+}
+
+
+#p-register, #p-search{
+font-family: Work sans, arial;
+font-weight: 400;
+}
+
+
+@media (max-width: 400px) {
+.service-container, .service, .service h3, .service p, .service .icon, .update-button, .register-button{
+    scale: 0.9;
+    margin-top: 0;
+}
+}

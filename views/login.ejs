@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+        <%- include('./partials/head.ejs') %>
+    <body>
+    
+        <%- include('./partials/navbar.ejs') %>
+
+        <div class="login-container">
+            <h1>Login</h1>
+            <form id="form-login" method="POST">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <span class="email-error-login" style="color: red;"></span>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <span class="password-error-login" style="color: red;"></span>
+
+                <button id="login-button-register" type="submit"  >Login</button>
+            </form>
+            <p>If you don't have an account, please <a href="/sign-up">Sign up</a></p>
+        </div>
+
+        <%- include('./partials/footer.ejs') %> 
+    
+    <script nonce="<%= nonce %>">
+        document.addEventListener("DOMContentLoaded", () => {
+            const formL = document.querySelector('#form-login');
+            const emailErrorL = document.querySelector('.email-error-login');
+            const passwordErrorL = document.querySelector('.password-error-login');
+
+            formL.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const email = formL.email.value;
+                const password = formL.password.value;
+                console.log('email, password:', email, password);
+
+                try {
+
+                    const csrfResponse = await fetch('/api/v1/token/crsf-token');
+                    const csrfData = await csrfResponse.json();
+                    console.log('crsfData:', csrfData);
+                    const csrfToken = csrfData.csrf;
+
+                    if(!csrfToken){
+                        console.log('Invalid csrf Token');
+                    }
+
+                    console.log('token csrf:', csrfToken, 'type:', typeof csrfToken);
+
+                    const res = await fetch('/api/v1/users/auth/login', {
+                        method: 'POST',
+                        body: JSON.stringify({ email, password }),
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'X-CSRF-Token': csrfToken 
+                        }
+                    });                    
+                    
+                    const data = await res.json();                    
+                    console.log('data:', data, 'data-user:', data.user, 'data-errors:', data.errors);
+
+                    emailErrorL.textContent = '';
+                    passwordErrorL.textContent = '';
+
+                    if (data.errors) {
+                        emailErrorL.textContent = data.errors.email || '';
+                        passwordErrorL.textContent = data.errors.password || '';
+                    }
+
+                    if (data.user) {
+                        console.log('Successful login!');
+                        location.assign('/user-system');
+                    }
+                } catch (error) {
+                    console.log('Login Error:', error);
+                }
+            });
+        });
+    </script>
+
+    </body>
+</html>

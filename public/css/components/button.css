@@ -1,0 +1,64 @@
+.button-component{
+    font-family: "Work sans", Arial;
+    font-size: 0.8 em;
+    border: 1px, solid, blue;
+    background-color: rgba(64, 64, 232, 0.94);
+    color: aliceblue;
+    padding: 5px 10px;
+    border-radius: 50px;
+    box-shadow: 0 0 2px black;
+}
+
+.button-component:hover{
+    box-shadow: 0 0 7px black; 
+    opacity: 0.95;
+}
+
+.button-component:active{
+    box-shadow: 0 0 0px black; 
+    color: rgba(64, 64, 232, 0.94);
+    background-color: aliceblue;
+}
+
+@media (max-width: 1200px) {
+    main{
+        scale: 0.9;
+    }
+
+    .button-component {
+        margin-left: 100px;
+    }
+}
+
+@media (max-width: 1000px) {
+    main{
+        scale: 0.8;
+    }
+    
+    .button-component {
+        margin-left: 30px;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 800px) {
+    main{
+        scale: 0.7;
+    }
+
+    .button-component {
+        margin-left: 0px;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 400px) {
+    main{
+        scale: 0.5;
+    }
+
+    .button-component {
+        margin-left: -50px;
+        margin-top: 0;
+    }
+}

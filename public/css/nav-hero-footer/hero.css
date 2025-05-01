@@ -1,0 +1,102 @@
+
+main{
+    
+    width: 100vw;
+    height: 60vh;
+    flex-wrap: wrap;
+}
+
+.hero-content{
+    margin-left: 15em;
+    margin-top: 7em;
+}
+
+.title-hero{
+    font-family: "Roboto", Arial;
+    font-size: 4.5em;
+    margin-bottom: 0%;
+    font-weight: 600;
+}
+
+.text-hero{
+    font-family: "Work sans", arial;
+    font-style: italic;
+    color: gray;
+    font-size: 3em;
+    margin-top: 0.5em;
+    font-weight: 500;
+}
+
+.text{
+    font-size: 1.3em;
+    color: darkslategray;
+    font-family: "Work sans", arial;
+    margin-bottom: 50px;
+}
+
+
+.button-hero{
+    font-family: "Work sans", Arial;
+    font-size: 1.4em;
+    border: 1px, solid, blue;
+    background-color: rgba(64, 64, 232, 0.94);
+    color: aliceblue;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 0 5px black;  
+
+}
+
+.button-hero:hover{
+    box-shadow: 0 0 7px black; 
+    opacity: 0.95;
+}
+
+.button-hero:active{
+    box-shadow: 0 0 0px black; 
+    color: rgba(64, 64, 232, 0.94);
+    background-color: aliceblue;
+}
+
+@media (max-width: 1200px) {
+    main{
+        scale: 0.9;
+    }
+
+    .hero-content, .button-hero, .text-hero, .text, .title-hero{
+        margin-left: 100px;
+    }
+}
+
+@media (max-width: 1000px) {
+    main{
+        scale: 0.8;
+    }
+    
+    .hero-content, .button-hero, .text-hero, .text, .title-hero{
+        margin-left: 30px;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 800px) {
+    main{
+        scale: 0.7;
+    }
+
+    .hero-content, .button-hero, .text-hero, .text, .title-hero{
+        margin-left: 0px;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 400px) {
+    main{
+        scale: 0.5;
+    }
+
+    .hero-content, .button-hero, .text-hero, .text, .title-hero{
+        margin-left: -50px;
+        margin-top: 0;
+    }
+}

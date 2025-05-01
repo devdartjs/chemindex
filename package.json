@@ -1,0 +1,44 @@
+{
+  "name": "indexchem",
+  "privete": "true",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha",
+    "start": "node app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "audit": "^0.0.6",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "csrf": "^3.1.0",
+    "csurf": "^1.2.2",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "escape-html": "^1.0.3",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.10",
+    "sanitize-html": "^2.16.0",
+    "validator": "^13.15.0",
+    "view-engine": "^1.1.1"
+  },
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0",
+    "nyc": "^17.1.0",
+    "sinon": "^20.0.0",
+    "supertest": "^7.1.0"
+  }
+}
