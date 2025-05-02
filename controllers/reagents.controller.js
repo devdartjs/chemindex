@@ -37,9 +37,12 @@ export const getReagent = async(req, res) => {
 }
 
 export const createReagent = async (req, res) => {
-    try {
+    try {        
         const userId = res.locals.user?._id;
             if (!userId) return res.status(401).json({ message: 'User not allowed.' });
+
+        const reagents = await Reagent.find({ createdBy: userId});
+        if(reagents.length >= 16) return res.status(403).json({ message: 'To create more reagents, you need to update account'}); //posso renderizar um formulário de espera 
 
         const { casNumber, ...fields } = req.body;
             if (!casNumber) return res.status(400).json({ message: 'Invalid casNumber'});

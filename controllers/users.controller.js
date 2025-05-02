@@ -7,13 +7,11 @@ export const getUserSystemPage = async(req, res) => {
 }
 
 export const getUserRegisterPage = async(req, res) => {
-    console.log('register page');
-    return res.status(200).json({ locals: res.locals});
+    return res.status(200).render('register', { user: res.locals.user});
 }
 
 export const getUserUpdatePage = async(req, res) => {
-    console.log('update page');
-    return res.status(200).json({ message: 'Search-Update Page'});
+    return res.status(200).render('search-update', { user: res.locals.user});
 }
 
 export const getSingUpPage = (req, res) => {

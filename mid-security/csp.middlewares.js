@@ -7,7 +7,6 @@
 
     const cspMiddlewareDev = (req, res, next) => {
         const nonce = generateNonce();
-        console.log('Generated nonce:', nonce);
         res.locals.nonce = nonce;
         console.log('nonce no res.locals:', res.locals.nonce);
 
@@ -24,7 +23,6 @@
         };
         
         const cspHeader = generateCSPHeader(cspPolicy);
-        console.log("Generated CSP Header:", cspHeader);
         res.setHeader('Content-Security-Policy', cspHeader);
         next();
     };

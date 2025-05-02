@@ -10,7 +10,6 @@ export const sanitizeReagentInput = (req, res, next) => {
     const sanitizedFields = [];
 
     try {
-        // Campos simples
         fieldsToSanitize.forEach(field => {
             if (req.body[field]) {
                 const original = req.body[field];
@@ -24,31 +23,10 @@ export const sanitizeReagentInput = (req, res, next) => {
             }
         });
 
-        // Campos do tipo array simples
-        if (Array.isArray(req.body.information)) {
-            req.body.information = req.body.information.map(info =>
-                sanitizeHtml(info, { allowedTags: [], allowedAttributes: {} }).trim()
-            );
-            sanitizedFields.push('information');
-        }
-
-        // Campos compostos (array de objetos)
-        if (Array.isArray(req.body.composition)) {
-            req.body.composition = req.body.composition.map(item => ({
-                substance: item.substance
-                    ? sanitizeHtml(item.substance, { allowedTags: [], allowedAttributes: {} }).trim()
-                    : '',
-                concentration: item.concentration
-                    ? sanitizeHtml(item.concentration, { allowedTags: [], allowedAttributes: {} }).trim()
-                    : ''
-            }));
-            sanitizedFields.push('composition');
-        }
-
         if (sanitizedFields.length === 0) {
-            console.log('[sanitizeReagentInput] ⚠️ Nenhum campo foi sanitizado.');
+            console.log('[sanitizeReagentInput] ⚠️ No sanitized fields.');
         } else {
-            console.log('[sanitizeReagentInput] ✅ Campos sanitizados:', sanitizedFields);
+            console.log('[sanitizeReagentInput] ✅ Sanitized fields:', sanitizedFields);
         }
 
         next();

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="form-container">
+        <h1 id="h1-register">Reagent Registration</h1>
+
+        <form id="reagentForm-register" method="POST">
+            <div class="div1-register">
+                <div class="form-group-register">
+                    <label for="casNumber">CAS Number:</label><br>
+                    <input type="text" id="casNumber-register" name="casNumber" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="reagentName">Reagent Name:</label><br>
+                    <input type="text" id="reagentName-register" name="reagentName" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="description">Description:</label><br>
+                    <textarea id="description-register" name="description" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="classe">Class:</label><br>
+                    <input type="text" id="classe-register" name="classe" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="quantity">Quantity:</label><br>
+                    <input type="number" id="quantity-register" name="quantity" min="1" required>
+                </div>
+            </div>
+
+            <div class="div2-register">
+                <div class="form-group-register">
+                    <label for="brand">Brand:</label><br>
+                    <input type="text" id="brand-register" name="brand" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="manufactureDate">Manufacture Date:</label><br>
+                    <input type="date" id="manufactureDate-register" name="manufactureDate" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="expiryDate">Expiry Date:</label><br>
+                    <input type="date" id="expiryDate-register" name="expiryDate" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="classification">Classification:</label><br>
+                    <input type="text" id="classification-register" name="classification" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="local">Location:</label><br>
+                    <input type="text" id="local-register" name="local" required>
+                </div>
+            </div>
+
+            <div class="div3-register">
+                <div class="form-group-register">
+                    <label for="volume">Volume:</label><br>
+                    <input type="text" id="volume-register" name="volume" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="weight">Weight:</label><br>
+                    <input type="text" id="weight-register" name="weight" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="molecularFormula">Molecular Formula:</label><br>
+                    <input type="text" id="molecularFormula-register" name="molecularFormula" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="molecularWeight_g_per_mol">Molecular Weight (g/mol):</label><br>
+                    <input type="text" id="molecularWeight_g_per_mol-register" name="molecularWeight_g_per_mol" required>
+                </div>
+
+                <div class="form-group-register">
+                    <label for="furtherInformations">Further Information:</label><br>
+                    <textarea id="furtherInformations-register" name="furtherInformations" rows="3"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="register-submit-button">Register Reagent</button>
+        </form>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+
+    <script nonce = "<%= nonce %>">
+        document.addEventListener("DOMContentLoaded", () => {
+            const userId = "<%= user._id %>";
+
+        document.getElementById('reagentForm-register').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = {
+                casNumber: document.getElementById('casNumber-register').value.trim(),
+                reagentName: document.getElementById('reagentName-register').value.trim(),
+                description: document.getElementById('description-register').value.trim(),
+                classe: document.getElementById('classe-register').value.trim(),
+                quantity: parseInt(document.getElementById('quantity-register').value) || 1,
+                brand: document.getElementById('brand-register').value.trim(),
+                manufactureDate: document.getElementById('manufactureDate-register').value,
+                expiryDate: document.getElementById('expiryDate-register').value,
+                classification: document.getElementById('classification-register').value.trim(),
+                local: document.getElementById('local-register').value.trim(),
+                volume: document.getElementById('volume-register').value.trim(),
+                weight: document.getElementById('weight-register').value.trim(),
+                molecularFormula: document.getElementById('molecularFormula-register').value.trim(),
+                molecularWeight_g_per_mol: document.getElementById('molecularWeight_g_per_mol-register').value.trim(),
+                furtherInformations: document.getElementById('furtherInformations-register').value.trim()
+            };
+
+            try {
+                const csrfResponse = await fetch('/api/v1/token/csrf-token');
+                const csrfData = await csrfResponse.json();
+                const csrfToken = csrfData.csrf;
+
+                if (!csrfToken) {
+                    alert('CSRF token not found. Please reload the page.');
+                    return;
+                }
+
+                const response = await fetch(`/api/v1/reagents/auth/${userId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Error registering reagent');
+                }
+
+                alert('Reagent registered successfully!');
+                document.getElementById('reagentForm-register').reset();
+                
+            } catch (error) {
+                alert(error.message);
+                console.error('Error:', error);
+            }
+        });
+
+        })
+            </script>
+</body>
+</html>

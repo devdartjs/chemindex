@@ -9,7 +9,7 @@
 }
 
 /* Estilos do formulário */
-#productForm-search-update {
+#reagentForm-search-update {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -35,6 +35,8 @@
     flex-direction: row;
     
 }
+
+
 
 /* Estilo do botão de envio */
 .SUD-submit-button {
@@ -87,8 +89,8 @@
 }
 
 /* Estilos para os inputs */
-#productForm-search-update .form-group-search-update input,
-#productForm-search-update .form-group-search-update textarea {
+#reagentForm-search-update .form-group-search-update input,
+#reagentForm-search-update .form-group-search-update textarea {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 70%; /* Ajuste para largura total */
@@ -99,7 +101,7 @@
 }
 
 /* Ajuste para o textarea */
-#productForm-search-update .form-group-search-update textarea {
+#reagentForm-search-update .form-group-search-update textarea {
     resize: vertical;
 }
 

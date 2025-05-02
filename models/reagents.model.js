@@ -37,11 +37,11 @@ const reagentSchema = mongoose.Schema({
     },
     manufactureDate: {
         type: Date,
-        required: [true, 'Manufacture date is required'],
+        required: [false, 'Manufacture date is required'],
     },
     expiryDate: {
         type: Date,
-        required: [true, 'expire date is required'],
+        required: [false, 'expire date is required'],
     },
     information: [String],
     classification: {

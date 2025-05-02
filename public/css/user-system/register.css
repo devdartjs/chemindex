@@ -8,7 +8,7 @@
 }
 
 /* Estilos do formulário */
-#productForm-register {
+#reagentForm-register {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -69,8 +69,8 @@
 }
 
 /* Estilos para os inputs */
-#productForm-register .form-group-register input,
-#productForm-register .form-group-register textarea {
+#reagentForm-register .form-group-register input,
+#reagentForm-register .form-group-register textarea {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 70%; /* Ajuste para largura total */
@@ -81,7 +81,7 @@
 }
 
 /* Ajuste para o textarea */
-#productForm-register .form-group-register textarea {
+#reagentForm-register .form-group-register textarea {
     resize: vertical;
 }
 

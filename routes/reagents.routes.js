@@ -7,7 +7,7 @@ const reagentsRouter = Router();
 const reagentValidation = validate({ body: reagentSchemaCreateValidator});
 
 reagentsRouter.get('/', getReagents);
-reagentsRouter.get('/:casNumber', reagentValidation, getReagent);
+reagentsRouter.get('/:casNumber', getReagent);
 
 export default reagentsRouter;
 

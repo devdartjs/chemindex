@@ -17,8 +17,8 @@ export const authentication = (req, res, next) => {
 
         } else {
             console.log('Token has been verified:', decodedToken);
-            res.locals.user = { _id: decodedToken.id };
-            console.log('res.locals.user-jwtMid:', res.locals.user);
+            res.locals.user._id = { _id: decodedToken.id };
+            console.log('res.locals.userId-jwtMid:', res.locals.user._id);
             next();
         }
         }); 
@@ -30,8 +30,6 @@ export const authentication = (req, res, next) => {
 export const checkUser = async (req, res, next) => {
     const token = req.cookies.jwt;
     // const token = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
-    console.log('checkUser jwt Token:', token);
-
     if (token) {
         jwt.verify(token, JWT_SECRET, async (err, decodedToken) => {
 
@@ -47,7 +45,7 @@ export const checkUser = async (req, res, next) => {
             const user = await User.findById(decodedToken.id);
             res.locals.user = user;
             req.user = user;
-            console.log('Checked user procedure:', user);
+            console.log('user was send to locals:', res.locals.user);
             next();
 
             } catch (dbError) {

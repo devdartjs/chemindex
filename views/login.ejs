@@ -2,8 +2,7 @@
 
 <html lang="en">
         <%- include('./partials/head.ejs') %>
-    <body>
-    
+    <body>    
         <%- include('./partials/navbar.ejs') %>
 
         <div class="login-container">
@@ -39,7 +38,7 @@
 
                 try {
 
-                    const csrfResponse = await fetch('/api/v1/token/crsf-token');
+                    const csrfResponse = await fetch('/api/v1/token/csrf-token');
                     const csrfData = await csrfResponse.json();
                     console.log('crsfData:', csrfData);
                     const csrfToken = csrfData.csrf;
