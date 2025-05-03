@@ -36,7 +36,7 @@ app.set('views', viewPath);
 
 //middlewares
 app.use(express.json());
-app.use(express.urlencoded({ extended: true})); //verificar o código disso
+app.use(express.urlencoded({ extended: true}));
 app.use(express.static(publicPath));
 app.use(cookieParser());
 mongoose.set('sanitizeFilter', true);
@@ -47,7 +47,7 @@ const userValidation = validate({ body: userSchemaAccessValidator});
 const reagentValidation = validate({ body: reagentSchemaCreateValidator});
 
 app.use('/', checkUser, usersRouter);
-app.use('/api/v1/users/auth', sanitizeUsersInput, escapeUserInput, userValidation, authRouterState); //verificar políticas CSP
+app.use('/api/v1/users/auth', sanitizeUsersInput, escapeUserInput, userValidation, authRouterState); 
 app.use('/api/v1/reagents/:userId', checkUser, authentication, reagentValidation, reagentsRouter);
 app.use('/api/v1/reagents/auth/:userId', checkUser, authentication, reagentValidation, reagentsStateRouter);
 app.use('/api/v1/token', csrfRouter);
