@@ -56,13 +56,15 @@
 
     
     const cspMiddleware = (req, res, next) => {
-    if (NODE_ENV !== 'development') {
-        return cspMiddlewareProd(req, res, next);
-    }
-    
-    return cspMiddlewareDev(req, res, next);
+        const env = NODE_ENV;
+
+            if (env !== 'development') {
+                res.locals.env = env;
+                return cspMiddlewareProd(req, res, next);
+            }
+            
+            res.locals.env = env;
+            return cspMiddlewareDev(req, res, next);
     };
-
     
-
 export default cspMiddleware;

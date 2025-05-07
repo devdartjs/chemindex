@@ -4,7 +4,6 @@ import { JWT_SECRET } from '../config/config.env.js';
 
 export const authentication = (req, res, next) => {
     const token = req.cookies.jwt;
-    // const token = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
 
     console.log('authentication req-coockies-jwt Token:', token);
 
@@ -29,7 +28,7 @@ export const authentication = (req, res, next) => {
 
 export const checkUser = async (req, res, next) => {
     const token = req.cookies.jwt;
-    // const token = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
+
     if (token) {
         jwt.verify(token, JWT_SECRET, async (err, decodedToken) => {
 

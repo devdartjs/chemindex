@@ -18,7 +18,15 @@ const userSchema = mongoose.Schema({
         required: [true, 'Please enter a password'],
         minlength: [6, 'Minimum password length is 6 characters'],
     },
+
+    status: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user',
+    }
 });
+
+userSchema.index({ status: 1});
 
 userSchema.pre('save', async function (next) {
     const salt = await bcrypt.genSalt();
@@ -43,10 +51,11 @@ userSchema.statics.login = async function (email, password) {
         const auth = await bcrypt.compare(password, user.password);
 
         if (auth) {
-        console.log('authorized');
-        return user;
+            console.log('authorized');
+            return user;
+
         } else {
-        throw new Error('incorrect password');
+            throw new Error('incorrect password');
         }
     } catch (error) {
         console.log('models-login (4)', error);

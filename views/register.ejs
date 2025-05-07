@@ -102,7 +102,9 @@
 
         document.getElementById('reagentForm-register').addEventListener('submit', async (e) => {
             e.preventDefault();
-
+            
+            const form = document.getElementById("reagentForm-register");
+            form.desabled = true;
             const formData = {
                 casNumber: document.getElementById('casNumber-register').value.trim(),
                 reagentName: document.getElementById('reagentName-register').value.trim(),
@@ -122,20 +124,25 @@
             };
 
             try {
+                const casRegex = /^\d{2,7}-\d{2}-\d$/;             
+
+                if (!casRegex.test(formData.casNumber)) {
+                    alert("Please enter a valid CAS Number (format: xxx-xx-x)");
+                    form.reset();
+                    form.desabled = false;
+                    return;                    
+                };
+
                 const csrfResponse = await fetch('/api/v1/token/csrf-token');
                 const csrfData = await csrfResponse.json();
-                const csrfToken = csrfData.csrf;
-
-                if (!csrfToken) {
-                    alert('CSRF token not found. Please reload the page.');
-                    return;
-                }
-
+                const csrf = csrfData.csrf;
+                if (!csrf) return alert('CSRF token not found. Please reload the page.');
+            
                 const response = await fetch(`/api/v1/reagents/auth/${userId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-Token': csrfToken
+                        'X-CSRF-Token': csrf
                     },
                     body: JSON.stringify(formData)
                 });

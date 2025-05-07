@@ -20,9 +20,7 @@
         } catch (err) {
             if (err.code === 11000) {
             console.log('error code captured', err.code);
-            return res
-                .status(400)
-                .json({ errors: { email: 'That email is already used!' } });
+            return res.status(400).json({ errors: { email: 'That email is already used!' } });
             }
 
             const errors = handleErrors(err);
@@ -41,11 +39,12 @@
             const user = await User.login(email, password);
 
             if (user) {
-            const token = createToken(user._id);
-            res.cookie('jwt', token, {
-                httpOnly: true,
-                maxAge: 1 * 1000 * 60 * 60 * 24,
-            });
+                const token = createToken(user._id);
+                
+                res.cookie('jwt', token, {
+                    httpOnly: true,
+                    maxAge: 1 * 1000 * 60 * 60 * 24,
+                });
             
             console.log('login token:', token);
 
@@ -54,10 +53,12 @@
 
             throw new Error('incorrect password');
         } catch (err) {
+
             const errors = handleErrors(err);
 
             if (err.message === 'incorrect email') {
             return res.status(400).json({ errors: { email: errors.email } });
+
             } else if (err.message === 'incorrect password') {
             return res.status(400).json({ errors: { password: errors.password } });
             }
@@ -66,9 +67,5 @@
         console.log(res.locals.user);
         }
 
-        export const logout = (req, res) => {
-            res.cookie('jwt', '', { maxAge: 1 });
-            res.redirect('/');
-        }
 
 

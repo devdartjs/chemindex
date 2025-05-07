@@ -1,7 +1,7 @@
 import escape from 'escape-html';
 
 const escapeFields = [
-'email'
+'email', 'password'
 ];
 
 export const escapeUserInput = (req, res, next) => {

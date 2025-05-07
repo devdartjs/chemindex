@@ -3,10 +3,10 @@ import Reagent from "../models/reagents.model.js";
 export const getReagents = async (req, res) => {
     try{
         const userId = res.locals.user?._id;    
-            if (!userId) return res.status(401).json({ message: 'User not allowed.' });
+        if (!userId) return res.status(401).json({ message: 'User not allowed.' });
 
         const reagents = await Reagent.find({ createdBy: userId});
-            if (reagents.length === 0) return res.status(400).json({ message: 'There is no reagents here!'});
+        if (reagents.length === 0) return res.status(400).json({ message: 'There is no reagents here!'});
 
         return res.status(200).json({ quantity: reagents.length, reagents });
 
@@ -20,13 +20,13 @@ export const getReagent = async(req, res) => {
         
     try{
         const userId = res.locals.user?._id;
-            if (!userId) return res.status(400).json({ message: 'User not allowed'});
+        if (!userId) return res.status(400).json({ message: 'User not allowed'});
 
         const { casNumber } = req.params;
-            if(!casNumber) return res.status(400).json({ message: 'Invalid CAS-Number'});
+        if(!casNumber) return res.status(400).json({ message: 'Invalid CAS-Number'});
 
         const reagent = await Reagent.find({ casNumber: casNumber.trim(), createdBy: userId});
-            if(reagent.length === 0) return res.status(400).json({ message: 'There is no reagent associated with this CAS-Number'});
+        if(reagent.length === 0) return res.status(400).json({ message: 'There is no reagent associated with this CAS-Number'});
 
         return res.status(200).json({ reagent: reagent});
 
@@ -39,7 +39,7 @@ export const getReagent = async(req, res) => {
 export const createReagent = async (req, res) => {
     try {        
         const userId = res.locals.user?._id;
-            if (!userId) return res.status(401).json({ message: 'User not allowed.' });
+        if (!userId) return res.status(401).json({ message: 'User not allowed.' });
 
         const reagents = await Reagent.find({ createdBy: userId});
         if(reagents.length >= 16){
@@ -48,12 +48,12 @@ export const createReagent = async (req, res) => {
         }
 
         const { casNumber, ...fields } = req.body;
-            if (!casNumber) return res.status(400).json({ message: 'Invalid casNumber'});
+        if (!casNumber) return res.status(400).json({ message: 'Invalid casNumber'});
         
         console.log('userId-controller:', userId, 'casNumber:', casNumber);     
 
         const existingReagent = await Reagent.findOne({ casNumber: casNumber.trim(), createdBy: userId});
-            if(existingReagent) return res.status(400).json({ message: 'Reagent already exists!'});
+        if(existingReagent) return res.status(400).json({ message: 'Reagent already exists!'});
     
         const newReagent = await Reagent.create({
             ...req.body,
@@ -72,13 +72,13 @@ export const createReagent = async (req, res) => {
 export const updateReagent = async (req, res) => {
     try {
         const userId = res.locals.user?._id;
-            if(!userId) return res.status(400).json({ message: 'User not allowed'});
+        if(!userId) return res.status(400).json({ message: 'User not allowed'});
         
         const { casNumber, ...updateFields } = req.body;
-            if(!casNumber || Object.keys(updateFields).length === 0) return res.status(400).json({ message: 'Invalid request format!: review your fields'});
+        if(!casNumber || Object.keys(updateFields).length === 0) return res.status(400).json({ message: 'Invalid request format!: review your fields'});
         
         const existingProduct = await Reagent.findOne({ casNumber: casNumber.trim(), createdBy: userId });
-            if (!existingProduct.length === 0) return res.status(404).json({ error: "Product not found!" });
+        if (!existingProduct) return res.status(404).json({ error: "Product not found!" });
 
         const updatedProduct = await Reagent.findOneAndUpdate(
             { casNumber },

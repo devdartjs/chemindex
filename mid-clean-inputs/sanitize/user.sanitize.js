@@ -3,7 +3,7 @@
     export const sanitizeUsersInput = (req, res, next) => {
         
     const fieldsToSanitize = [
-        'email',
+        'email', 'password'
     ];
 
     const sanitizedFields = [];

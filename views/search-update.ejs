@@ -7,7 +7,7 @@
     <div class="form-container">
         <h1 id="h1-search-update">Search & Update</h1>
 
-        <form id="reagentForm-search-update" method="POST">
+        <form id="reagentForm-search-update" action="javascript:void(0)" method="POST">
             <div class="div1-search-update">
                 <div class="form-group-search-update">
                     <label for="casNumber">CAS Number:</label><br>
@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="form-group-search-update">
-                    <label for="reagentName">Product Name:</label><br>
+                    <label for="reagentName">Reagent Name:</label><br>
                     <input type="text" id="reagentName-register" name="reagentName" required>
                 </div>
 
@@ -104,18 +104,41 @@
     <script nonce = "<%= nonce %>">        
         document.addEventListener("DOMContentLoaded", async () => {
 
-            const userId = "<%= user._id %>";            
+            const userId = "<%= user._id %>";
+            const env = "<%= env %>";            
             const form = document.getElementById("reagentForm-search-update");
             const searchButton = document.getElementById("searchButton");
             const updateButton = document.getElementById("updateButton");
             const deleteButton = document.getElementById("deleteButton");
 
-            function formatDateToInputValue(isoString) {
-                return isoString ? isoString.split("T")[0] : "";
+            async function validateCasNumberAndGetToken(casNumber){
+                const casRegex = /^\d{2,7}-\d{2}-\d$/;                
+
+                if (!casRegex.test(casNumber)) {
+                    alert("Please enter a valid CAS Number (format: xxx-xx-x)");
+                    form.reset();
+                    searchButton.disabled = false;
+                    return;                    
+                };
+
+                const csrfResponse = await fetch('/api/v1/token/csrf-token');
+                const csrfData = await csrfResponse.json();
+                const csrfToken = csrfData.csrf;
+                return csrfToken;
             }
+            function isDevEnv(envirement){
+                if (envirement.toLowerCase() === 'development'){
+                    return true;
+                }
+                return false;
+            };
 
             function fillForm(data) {
-                const reagent = data.reagent[0];
+                function formatDateToInputValue(isoString) {
+                    return isoString ? isoString.split("T")[0] : "";
+                }
+
+                const [reagent] = data.reagent;
                 if (!reagent) {
                     alert("Reagent not Found.");
                     return;
@@ -140,52 +163,44 @@
             searchButton.addEventListener("click", async (e) => {
                 e.preventDefault();
 
-                searchButton.disabled = true;
-
                 const casNumber = document.getElementById("casNumber-register").value.trim();
-
-                if (!casNumber) {
-                    alert("Please enter a valid CAS Number");
-                    form.reset();
-                    return location.reload();
-                    
-                };
-
+                searchButton.disabled = true;
                 try {                    
-                    const csrfResponse = await fetch('/api/v1/token/csrf-token');
-                    const csrfData = await csrfResponse.json();
-                    const csrfToken = csrfData.csrf;
-
-                    if (!csrfToken) return alert('CSRF token not found. Please reload the page.');
+                    const csrf = await validateCasNumberAndGetToken(casNumber);
+                    if (!csrf) return alert('CSRF token not found');
 
                     const response = await fetch(`/api/v1/reagents/${userId}/${casNumber}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-Token': csrfToken
+                            'X-CSRF-Token': csrf
                         }
                     });
 
-                    if(!response.ok) {
-                        console.log('Fetch Error:', response);
+                    if (!response.ok) {
+                        throw new Error(`Server responded with ${response.status}`);
                     };
 
-                    console.log('response-fetch:', response);
-
-                    const data = await response.json();  
-                    console.log('data-response-fetch:', data);
-                    console.log('data-reagent:', data.reagent, 'type:', typeof data.reagent);
-                    console.log('data-message:', data.message);
+                    const data = await response.json();
+                    if(isDevEnv(env)){
+                        console.log('response-fetch:', response);
+                        console.log('data-response-fetch:', data);
+                        console.log('data-reagent:', data.reagent, 'type:', typeof data.reagent);
+                        console.log('data-message:', data.message);
+                    }; 
                     
-                    if (!data.reagent){
+                    if (!Array.isArray(data.reagent) || data.reagent.length === 0) {
                         document.getElementById("productDetails").innerHTML = '<p style="color:red;">Reagent not Found</p>';
-                        return form.reset();                    
-                    };
+                        form.reset();
+                        return;
+                    };                    
 
                     const reagent = data.reagent[0];
-                    console.log('reagent-object:', reagent, 'type:', typeof reagent);
-                    console.log('reagent-quantity:', reagent.quantity);
-                    console.log('reagent-local:', reagent.local);
+                        if(isDevEnv(env)){
+                            console.log('reagent-object:', reagent, 'type:', typeof reagent);
+                            console.log('reagent-quantity:', reagent.quantity);
+                            console.log('reagent-local:', reagent.local);
+                        }
                     
                     fillForm(data);
                         document.getElementById("productDetails").innerHTML = `
@@ -195,7 +210,13 @@
                             </h3>`;
 
                 } catch (error) {
-                    console.error("Error during search:", error);
+
+                    if(env.toLocaleLowerCase() === 'development'){
+                        console.error("Error during search:", error);
+                    };
+
+                    console.error("Server Error");
+                    
 
                 } finally{
                     searchButton.disabled = false;
@@ -205,15 +226,8 @@
             updateButton.addEventListener("click", async (e) => {
                 e.preventDefault();
 
-                updateButton.disabled = true;
-
                 const casNumber = document.getElementById("casNumber-register").value.trim();
-
-                if (!casNumber) {
-                    alert("Please enter a valid CAS Number");
-                    return;
-                };
-
+                updateButton.disabled = true;
                 const formData = {
                     casNumber: document.getElementById('casNumber-register').value.trim(),
                     reagentName: document.getElementById('reagentName-register').value.trim(),
@@ -233,26 +247,22 @@
                 };
 
                 try {
+                    const csrf = await validateCasNumberAndGetToken(casNumber);
+                    if (!csrf) return alert('CSRF token not found. Please reload the page.');
+                    //antes do fetch é preciso garantir validação de todos os dados a serem enviados para o backend
+                    //não apenas o casNumber e sim todos.
 
-                    const csrfResponse = await fetch('/api/v1/token/csrf-token');
-                    const csrfData = await csrfResponse.json();
-                    const csrfToken = csrfData.csrf;
-
-                    if (!csrfToken) return alert('CSRF token not found. Please reload the page.');
-                    
                     const response = await fetch(`/api/v1/reagents/auth/${userId}/${casNumber}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-Token': csrfToken
+                            'X-CSRF-Token': csrf
                         },
                         body: JSON.stringify(formData)
                     });
 
                     const result = await response.json();
-
                     if (!response.ok) throw new Error(result.error || 'Error while updating product');
-
                     alert('The product has been updated!');
                     form.reset();
 
@@ -268,6 +278,7 @@
             deleteButton.addEventListener("click", async (e) => {
                 e.preventDefault();
 
+                const casNumber = document.getElementById("casNumber-register").value.trim();
                 if (!confirm("Are you sure you want to delete this reagent?")) {
                     deleteButton.disabled = false;
                     return;
@@ -275,32 +286,24 @@
 
                 deleteButton.disabled = true;
 
-                const casNumber = document.getElementById("casNumber-register").value.trim();
-
-                if (!casNumber) {
-                    alert("Please enter a valid CAS Number to delete");
-                    return;
-                }
-
                 try {
-                    const csrfResponse = await fetch('/api/v1/token/csrf-token');
-                    const csrfData = await csrfResponse.json();
-                    const csrfToken = csrfData.csrf;
+                    const csrf = await validateCasNumberAndGetToken(casNumber);
+                    if (!csrf) return alert('CSRF token not found. Please reload the page.');
 
-                    if (!csrfToken) return alert('CSRF token not found. Please reload the page.');
-                    
                     const response = await fetch(`/api/v1/reagents/auth/${userId}/${casNumber}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-Token': csrfToken
+                            'X-CSRF-Token': csrf
                         }
                     });
 
                     const result = await response.json();
-                    console.log('result-delete:', result, typeof result);
-                    console.log('result-error-delete:', result.error, typeof result.error);
-                    console.log('result-message-delete:', result.message, typeof result.message);
+                    if(isDevEnv(env)){
+                        console.log('result-delete:', result, typeof result);
+                        console.log('result-error-delete:', result.error, typeof result.error);
+                        console.log('result-message-delete:', result.message, typeof result.message);
+                    }
 
                     if (result.error) {
                         alert(result.error);
@@ -309,13 +312,14 @@
                         alert(result.message);
                         form.reset();
                         return location.reload();
-                    }
+                    };
+
                 } catch (error) {
                     console.error("Error deleting product:", error);
                     alert("Error deleting product");
                 } finally {
                     deleteButton.disabled = false;
-                }
+                };
             });
         });
     </script>

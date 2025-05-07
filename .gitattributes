@@ -1,0 +1,21 @@
+# Força LF em todos os arquivos de texto
+* text=auto eol=lf
+
+# Arquivos específicos com finais de linha LF
+*.js     text eol=lf
+*.ts     text eol=lf
+*.jsx    text eol=lf
+*.json   text eol=lf
+*.css    text eol=lf
+*.html   text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.sh     text eol=lf
+
+# Binários e arquivos que não devem ser convertidos
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.pdf    binary
