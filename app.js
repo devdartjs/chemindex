@@ -25,7 +25,8 @@ import { escapeUserInput } from './mid-clean-inputs/escape/user.escape.js';
 import cspMiddleware from './mid-security/csp.middlewares.js';
 import setCORP from './mid-security/corp.middleware.js';
 import { checkUser, authentication } from './mid-security/users.authentication.js';
-// import arcjetMiddleware from './mid-security/arcjet.middleware.js';
+import { checkAdmin } from './mid-admin/permission.admin.js';
+import arcjetMiddleware from './mid-security/arcjet.middleware.js';
 // import { redirectIfLoggedIn } from './mid-functions/redirectIfLoggedIn.js';
 
 const app = express();
@@ -53,6 +54,7 @@ mongoose.set('sanitizeFilter', true);
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cspMiddleware);
+app.use(arcjetMiddleware);
 app.use(setCORP);
 // app.use(cors);
 
@@ -61,11 +63,11 @@ const reagentValidation = validate({ body: reagentSchemaCreateValidator});
 
 app.use('/', checkUser, usersRouter);
 app.use('/api/v1/users/auth', sanitizeUsersInput, escapeUserInput, userValidation, authRouterState); 
-app.use('/api/v1/reagents/:userId', checkUser, authentication, reagentValidation, reagentsRouter);
+app.use('/api/v1/reagents/:userId', checkUser, authentication, reagentsRouter);
 app.use('/api/v1/reagents/auth/:userId', checkUser, authentication, reagentValidation, reagentsStateRouter);
 app.use('/api/v1/admin', adminRouter);
-app.use('/api/v1/admin/users', adminUsersRouter);
-app.use('/api/v1/admin/reagents', adminReagentsRouter);
+app.use('/api/v1/admin/users', checkUser, authentication, checkAdmin, adminUsersRouter);
+app.use('/api/v1/admin/reagents', checkUser, authentication, checkAdmin, adminReagentsRouter);
 app.use('/api/v1/token', csrfRouter);
 
 app.use('/logout', (req, res) => {

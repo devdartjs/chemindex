@@ -3,7 +3,7 @@ import { handleErrors } from "../../mid-functions/error.handler.js";
 import createToken from "../../mid-functions/creat.token.js";
 
 export const getAdminPage = async (req, res) => {
-    res.status(200).json('Render Admin Page (Dashboard)');
+    res.status(200).json({ message: 'Render Admin Page', user: res.locals.user._id, status: res.locals.user.status, nonce: res.locals.nonce});
 };
 
 export const loginAdmin = async (req, res) => {

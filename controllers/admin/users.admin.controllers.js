@@ -18,8 +18,8 @@ export const getUsers = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
-        const { id } = req.params;
-        const user = await User.findOne({ _id: id, status: 'user'});
+        const { userId } = req.params;
+        const user = await User.findOne({ _id: userId, status: 'user'});
 
         if (!user || user.status !== 'user') {
             return res.status(404).json({ message: 'User not found' });
@@ -51,11 +51,11 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { userId } = req.params;
         const { email, password } = req.body;
 
         const updatedUser = await User.findOneAndUpdate(
-            {_id: id, status: 'user'},
+            {_id: userId, status: 'user'},
             { $set: { email, password } },
             { new: true, runValidators: true }
         );
@@ -72,9 +72,9 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try{
-        const { id } = req.params;
+        const { userId } = req.params;
 
-        const deletedUser = await User.findOneAndDelete({_id: id, status: 'user'});
+        const deletedUser = await User.findOneAndDelete({_id: userId, status: 'user'});
         if(!deletedUser) throw new Error('Error while deleting');
 
         res.status(200).json({ message: 'The user has been deleted'});

@@ -1,13 +1,18 @@
 import { Router } from 'express';
 import { getAllReagents, getUserReagents, getUserReagent, createUserReagent, updateUserReagent, deleteUserReagent } from '../../controllers/admin/reagents.admin.controllers.js';
+import { reagentSchemaCreateValidator } from '../../mid-clean-inputs/validate/reagents.validate.js';
+import validate from '../../mid-clean-inputs/validate/schemas.validate.js';
+import { sanitizeReagentInput } from '../../mid-clean-inputs/sanitize/reagent.sanitize.js';
+import { escapeReagentInput } from '../../mid-clean-inputs/escape/reagent.escape.js';
 
-const adminReagentsRouter = Router(); //middlewares: checkUser, authentication, permissions, validation, escape, sanitization
+const reagentValidation = validate({ body: reagentSchemaCreateValidator});
+const adminReagentsRouter = Router();
 
 adminReagentsRouter.get('/', getAllReagents);
 adminReagentsRouter.get('/:userId', getUserReagents);
 adminReagentsRouter.get('/:userId/:casNumber', getUserReagent);
-adminReagentsRouter.post('/:userId', createUserReagent);
-adminReagentsRouter.put('/:userId/:casNumber', updateUserReagent);
 adminReagentsRouter.delete('/:userId/:casNumber', deleteUserReagent);
+adminReagentsRouter.post('/:userId', sanitizeReagentInput, escapeReagentInput, reagentValidation, createUserReagent);
+adminReagentsRouter.put('/:userId/:casNumber', sanitizeReagentInput, escapeReagentInput, reagentValidation, updateUserReagent);
 
 export default adminReagentsRouter;
