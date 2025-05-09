@@ -5,13 +5,12 @@
 @import url(./login-signup/login.css);
 @import url(./login-signup/sign-up.css);
 
-
 @import url(./user-system/system.css);
 @import url(./user-system/register.css);
 @import url(./user-system/search-update.css);
 
-
 @import url(./components/button.css);
+@import url(./premium-form/waiting-list.css);
 
 
 

@@ -43,8 +43,9 @@ export const createReagent = async (req, res) => {
 
         const reagents = await Reagent.find({ createdBy: userId});
         if(reagents.length >= 16){
-            alert('To create more reagents, you need to update account');
-            return res.status(403).json({ message: 'To create more reagents, you need to update account'}); //renderizar um formulário de espera usando .redirect('/formulário');
+            alert('To create more reagents, you need to update your account. Click ok and fill out the form');
+            return res.redirect('wainting-list-form');
+            //return res.status(403).json({ message: 'To create more reagents, you need to update your account'});
         }
 
         const { casNumber, ...fields } = req.body;

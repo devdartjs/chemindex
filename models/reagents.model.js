@@ -80,6 +80,8 @@ const reagentSchema = mongoose.Schema({
 
 });
 
+reagentSchema.index({ casNumber: 1, createdBy: 1 });
+
 reagentSchema.pre('save', function (next) {
     
     this.casNumber = sanitizeHtml(this.casNumber, { allowedTags: [], allowedAttributes: {} });

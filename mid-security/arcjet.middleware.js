@@ -3,7 +3,10 @@ import aj from '../config/config.arcjet.js';
 const arcjetMiddleware = async (req, res, next) => {
     try{
         const decision = await aj.protect(req, {requested: 1}); /// Deduct 5 tokens from the bucket
-        console.log(`[Arcjet] Decision: ${JSON.stringify(decision)}`);
+        
+        if (process.env.NODE_ENV !== 'production') {
+            console.log(`[Arcjet] Decision: ${JSON.stringify(decision)}`);
+        }
 
 
         if(decision.isDenied()){
@@ -14,12 +17,13 @@ const arcjetMiddleware = async (req, res, next) => {
 
             return res.status(403).json({ error: 'Access denied' });
         }
-        
+
         next();
     }
 
     catch(error){
         console.log(`Arcjet Middleware Error: ${error}`);
+        if (process.env.NODE_ENV === 'production') return res.status(503).json({ error: 'Security service unavailable' });  
         next(error);
     };
 };

@@ -75,6 +75,10 @@ app.use('/logout', (req, res) => {
     res.redirect('/');
 });
 
+app.get('/waiting-list', (req, res) => {
+    res.status(200).render('waiting-list');
+});
+
 app.use((req, res) => {
     res.status(400).json({ message: 'Error 404: Page not Found'}); //criar página page not found e renderizar
 });

@@ -1,0 +1,91 @@
+    .min-h-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    }
+
+    .waiting-list-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 5% auto;
+    padding: 2em;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    }
+
+    .waiting-list-container h1 {
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    }
+
+    .waiting-list-container p {
+    color: #666;
+    margin-bottom: 1.5em;
+    }
+
+    .form-group {
+    margin-bottom: 1em;
+    }
+
+    .waiting-list-container label {
+    font-family: "Work sans", Arial, sans-serif;
+    font-size: 1.1em;
+    display: block;
+    margin-top: 1em;
+    text-align: left;
+    font-weight: 500;
+    }
+
+    .waiting-list-container input,
+    .waiting-list-container textarea {
+    width: 100%;
+    padding: 0.8em;
+    margin-top: 0.3em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    }
+
+    .waiting-list-container textarea {
+    resize: vertical;
+    }
+
+    .waiting-list-container button {
+    font-size: 1.2em;
+    background-color: rgba(64, 64, 232, 0.94);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 1.5em;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 500;
+    }
+
+    .waiting-list-container button:hover {
+    opacity: 0.9;
+    }
+
+    .waiting-list-container button:active {
+    background-color: white;
+    color: rgba(64, 64, 232, 0.94);
+    border: 1px solid rgba(64, 64, 232, 0.94);
+    }
+
+    .mt-4 {
+    margin-top: 1rem;
+    }
+
+    .link-home {
+    color: rgba(64, 64, 232, 0.94);
+    text-decoration: none;
+    }
+
+    .link-home:hover {
+    text-decoration: underline;
+    }

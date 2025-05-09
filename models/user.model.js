@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
     }
 });
 
-userSchema.index({ status: 1});
+userSchema.index({ status: 1} );
 
 userSchema.pre('save', async function (next) {
     const salt = await bcrypt.genSalt();
