@@ -2,7 +2,7 @@ import aj from '../config/config.arcjet.js';
 
 const arcjetMiddleware = async (req, res, next) => {
     try{
-        const decision = await aj.protect(req, {requested: 1}); /// Deduct 5 tokens from the bucket
+        const decision = await aj.protect(req, {requested: 5}); /// Deduct 5 tokens from the bucket
         
         if (process.env.NODE_ENV !== 'production') {
             console.log(`[Arcjet] Decision: ${JSON.stringify(decision)}`);
@@ -28,4 +28,4 @@ const arcjetMiddleware = async (req, res, next) => {
     };
 };
 
-export default arcjetMiddleware;
+//// export default arcjetMiddleware;

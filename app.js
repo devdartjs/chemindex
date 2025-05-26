@@ -26,7 +26,7 @@ import cspMiddleware from './mid-security/csp.middlewares.js';
 import setCORP from './mid-security/corp.middleware.js';
 import { checkUser, authentication } from './mid-security/users.authentication.js';
 import { checkAdmin } from './mid-admin/permission.admin.js';
-import arcjetMiddleware from './mid-security/arcjet.middleware.js';
+// import arcjetMiddleware from './mid-security/arcjet.middleware.js';
 // import { redirectIfLoggedIn } from './mid-functions/redirectIfLoggedIn.js';
 
 const app = express();
@@ -45,7 +45,6 @@ const publicPath = path.resolve(__dirname, 'public');
 app.set('view engine', 'ejs');
 app.set('views', viewPath);
 
-//middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(publicPath));
@@ -54,7 +53,7 @@ mongoose.set('sanitizeFilter', true);
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cspMiddleware);
-app.use(arcjetMiddleware);
+/// app.use(arcjetMiddleware);
 app.use(setCORP);
 // app.use(cors);
 
@@ -69,6 +68,10 @@ app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/admin/users', checkUser, authentication, checkAdmin, adminUsersRouter);
 app.use('/api/v1/admin/reagents', checkUser, authentication, checkAdmin, adminReagentsRouter);
 app.use('/api/v1/token', csrfRouter);
+
+app.get('/test', (req, res) => {
+    res.send('<h1>Servidor funcionando!</h1>');
+});
 
 app.use('/logout', (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });
