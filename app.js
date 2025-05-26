@@ -33,7 +33,7 @@ const app = express();
 connectToMongoDB();
 
 // const dirname = path.dirname(new URL(import.meta.url).pathname);
-// const fixedDirname = dirname.startsWith('/') ? dirname.substring(1) : dirname;//
+// const fixedDirname = dirname.startsWith('/') ? dirname.substring(1) : dirname;///
 // const viewPath = path.resolve(fixedDirname, 'views');
 // const publicPath = path.resolve(fixedDirname, 'public');
 
