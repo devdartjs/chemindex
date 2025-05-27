@@ -1,9 +1,5 @@
-    import crypto from 'crypto';
-    import {NODE_ENV} from '../config/config.env.js'
-
-    const generateNonce = () => {
-        return crypto.randomBytes(16).toString('base64');
-    };
+    import {PORT, NODE_ENV} from '../config/config.env.js'
+    import generateNonce from '../utils/create-nonce.js';
 
     const cspMiddlewareDev = (req, res, next) => {
         const nonce = generateNonce();
@@ -12,12 +8,12 @@
 
         const cspPolicy = {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", `'nonce-${nonce}'`, 'http://localhost:6000', 'https://localhost:6000'],
-            styleSrc: ["'self'", `'nonce-${nonce}'`, 'http://localhost:6000', 'https://localhost:6000', 'https://fonts.gstatic.com'],
+            scriptSrc: ["'self'", `'nonce-${nonce}'`, `http://localhost:${PORT}`],
+            styleSrc: ["'self'", `'nonce-${nonce}'`, `http://localhost:${PORT}`, 'https://fonts.gstatic.com'],
             objectSrc: ["'none'"],
-            imgSrc: ["'self'", 'data:', 'https:', 'http://localhost:6000', 'https://localhost:6000'],
+            imgSrc: ["'self'", 'data:', 'https:', `http://localhost:${PORT}`],
             fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-            connectSrc: ["'self'", 'http://localhost:6000', 'https://localhost:6000'],
+            connectSrc: ["'self'", `http://localhost:${PORT}`],
             formAction: ["'self'"],
             frameAncestors: ["'none'"]
         };

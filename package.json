@@ -1,13 +1,13 @@
 {
   "name": "indexchem",
-  "privete": "true",
+  "private": true,
   "version": "1.0.0",
   "main": "app.js",
   "type": "module",
   "scripts": {
     "test": "mocha",
     "start": "node app",
-    "create-admin": "node admin/signUp.admin.js"
+    "create-admin": "node admin/sign-up-admin.js"
   },
   "keywords": [],
   "author": "",

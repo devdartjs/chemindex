@@ -12,4 +12,7 @@ usersRouter.get('/user-system', authentication, getUserSystemPage);
 usersRouter.get('/user-register-session', authentication, getUserRegisterPage);
 usersRouter.get('/user-update-session', authentication, getUserUpdatePage);
 
+//rota por fazer
+// usersRouter.get('/waiting-list', authentication, getWaitingListPage);
+
 export default usersRouter;

@@ -69,7 +69,7 @@ app.use('/api/v1/admin/users', checkUser, authentication, checkAdmin, adminUsers
 app.use('/api/v1/admin/reagents', checkUser, authentication, checkAdmin, adminReagentsRouter);
 app.use('/api/v1/token', csrfRouter);
 
-app.get('/test', (req, res) => {
+app.get('/test1', (req, res) => {
     res.send('<h1>Servidor funcionando!</h1>');
 });
 

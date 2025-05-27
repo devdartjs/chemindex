@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('./partials/head.ejs') %>
+    <%- include('./partials/head.ejs', { nonce: nonce} ) %>
 <body>
     
-    <%- include('./partials/navbar.ejs') %>
+    <%- include('./partials/navbar.ejs', { user: user}) %>
 
     <main>
         <div class="hero-content">

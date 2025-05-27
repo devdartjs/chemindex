@@ -38,15 +38,17 @@ export const getReagent = async(req, res) => {
 
 export const createReagent = async (req, res) => {
     try {        
-        const userId = res.locals.user?._id;
+        const userId = res.locals.user?._id;        
         if (!userId) return res.status(401).json({ message: 'User not allowed.' });
 
-        const reagents = await Reagent.find({ createdBy: userId});
+        const reagents = await Reagent.find({ userId, createdBy: userId});
+        if (!reagents) return res.status(400).json({ message: 'There is no reagents here!'});
+        console.log('reagents:', reagents.length);
+        
         if(reagents.length >= 16){
             alert('To create more reagents, you need to update your account. Click ok and fill out the form');
             return res.redirect('wainting-list-form');
-            //return res.status(403).json({ message: 'To create more reagents, you need to update your account'});
-        }
+        };
 
         const { casNumber, ...fields } = req.body;
         if (!casNumber) return res.status(400).json({ message: 'Invalid casNumber'});

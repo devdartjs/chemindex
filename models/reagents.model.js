@@ -5,7 +5,6 @@ const reagentSchema = mongoose.Schema({
     casNumber: {
         type: String,
         required: [true, 'CAS Number is required'],
-        unique: true,
         trim: true
     },
     reagentName: {
@@ -80,7 +79,7 @@ const reagentSchema = mongoose.Schema({
 
 });
 
-reagentSchema.index({ casNumber: 1, createdBy: 1 });
+reagentSchema.index({ casNumber: 1, createdBy: 1 }, { unique: true });
 
 reagentSchema.pre('save', function (next) {
     

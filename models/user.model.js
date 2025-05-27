@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
 
     status: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['user', 'user100', 'user250', 'user500', 'user750', 'user1000', 'userTest', 'admin'],
         default: 'user',
     }
 });
