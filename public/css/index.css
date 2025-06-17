@@ -1,4 +1,4 @@
-@import url(./nav-hero-footer/nav.css); 
+@import url(./nav-hero-footer/nav.css);
 @import url(./nav-hero-footer/hero.css);
 @import url(./nav-hero-footer/footer.css);
 
@@ -8,10 +8,7 @@
 @import url(./user-system/system.css);
 @import url(./user-system/register.css);
 @import url(./user-system/search-update.css);
+@import url(./user-system/dashboard.css);
 
 @import url(./components/button.css);
 @import url(./premium-form/waiting-list.css);
-
-
-
-

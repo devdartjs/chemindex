@@ -1,23 +1,19 @@
 <nav>
-    <a href="/"><img src="../images/erlem.svg" alt="Chem Index logo" id="chem-index-logo"></a>
-    
-    <ul>
-        <% if(user){ %>
-        <li id="user"><%= user ? user.email : "" %></li>
+  <a href="/user-system"
+    ><img src="../images/erlem.svg" alt="Chem Index logo" id="chem-index-logo"
+  /></a>
 
-            <form action="/logout" method="POST">
-                <button type="submit" class="button-component">Logout</button>
-            </form>
-            
+  <ul>
+    <% if(user){ %>
+    <li id="user"><%= user ? user.email : "" %></li>
 
-            <% } else { %>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/sign-up">Sign Up</a></li>
-            <% } %>
-        
-    </ul>
+    <form action="/logout" method="POST">
+      <button type="submit" class="button-component">Logout</button>
+    </form>
+
+    <% } else { %>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/sign-up">Sign Up</a></li>
+    <% } %>
+  </ul>
 </nav>
-
-
-
-

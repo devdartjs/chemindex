@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <main class="dashboard">
+      <section class="dashboard-info">
+        <h2>Dashboard</h2>
+        <p>Manage your reagents easily</p>
+        <p>Welcome, <strong><%= user.email %></strong>!</p>
+        <hr />
+        <p>
+          <a href="/">Reagents quantity: </a>
+          <span id="dashboard-reagents-quantity"></span>
+        </p>
+        <a href="/user-system"><p>Access system</p></a>
+        <a href="/user-register-session"><p>Add reagents</p></a>
+        <a href="/user-update-session"><p>Update reagents</p></a>
+      </section>
+
+      <section class="dashboard-container">
+        <h1 class="dashboard-title">Reagents</h1>
+        <div id="dashboard-reagents-list" class="dashboard-reagents-list">
+          Loading...
+        </div>
+      </section>
+    </main>
+
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>
+
+<script nonce="<%= nonce %>">
+  document.addEventListener("DOMContentLoaded", async () => {
+    const listContainer = document.getElementById("dashboard-reagents-list");
+    const reagentsQuantity = document.getElementById(
+      "dashboard-reagents-quantity"
+    );
+    const userId = "<%= user._id %>";
+
+    try {
+      const response = await fetch(
+        `/api/v1/reagents/${userId}/dashboard-reagents`
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        return (listContainer.innerHTML = `<p>${data.message}</p>`);
+      }
+
+      listContainer.innerHTML = "";
+
+      data.reagents.forEach((reagent) => {
+        const card = document.createElement("div");
+        card.className = "reagent-card";
+
+        const info = `
+          <div class="dashboard-reagent-info">
+            <p><strong class="dashboard-strong">CAS:</strong> ${reagent.casNumber}
+               | <strong class="dashboard-strong">Name:</strong> ${reagent.reagentName}
+                | <strong class="dashboard-strong">Location:</strong> ${reagent.local} </p>
+          </div>`;
+
+        const actions = `
+          <div class="dashboard-reagent-actions">
+            <button class="button-component" onclick="editReagent('${reagent._id}')">✏️</button>
+            <button class="button-component" onclick="deleteReagent('${reagent._id}')">🗑️</button>
+          </div>`;
+
+        card.innerHTML = `<div class="dashboard-reagent-card-content">
+          ${info}
+          ${actions} </div> `;
+        listContainer.appendChild(card);
+      });
+
+      reagentsQuantity.innerHTML = `<strong class="quantity">${data.reagents.length}<strong>`;
+      if (data.reagents.length === 0) {
+        listContainer.innerHTML = "<p>No reagents found.</p>";
+      }
+    } catch (err) {
+      listContainer.innerHTML = `<p>Error loading reagents.</p>`;
+    }
+  });
+
+  function editReagent(id) {
+    window.location.href = `/reagents/edit/${id}`;
+  }
+
+  function deleteReagent(id) {
+    if (confirm("Are you sure you want to delete this reagent?")) {
+      fetch(`/api/v1/reagents/${id}`, {
+        method: "DELETE",
+      }).then(() => location.reload());
+    }
+  }
+</script>
