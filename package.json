@@ -9,7 +9,8 @@
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "lint": "eslint .",
     "start": "node app",
-    "create-admin": "node admin/sign-up-admin.js"
+    "create-admin": "node admin/sign-up-admin.js",
+    "build": "node build.js"
   },
   "keywords": [],
   "author": "",
