@@ -5,7 +5,9 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "mocha",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "lint": "eslint .",
     "start": "node app",
     "create-admin": "node admin/sign-up-admin.js"
   },
@@ -19,9 +21,7 @@
     "audit": "^0.0.6",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
     "crypto": "^1.0.1",
-    "csrf": "^3.1.0",
     "csurf": "^1.2.2",
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
@@ -38,10 +38,6 @@
     "view-engine": "^1.1.1"
   },
   "devDependencies": {
-    "chai": "^5.2.0",
-    "mocha": "^11.1.0",
-    "nyc": "^17.1.0",
-    "sinon": "^20.0.0",
-    "supertest": "^7.1.0"
+    "jest": "^30.0.0"
   }
 }

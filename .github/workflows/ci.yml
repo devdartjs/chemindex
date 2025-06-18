@@ -1,4 +1,4 @@
-name: CI - Mercury
+name: CI - chemindex
 
 on:
   push:

@@ -1,6 +1,6 @@
 import express from "express";
 import helmet from "helmet";
-import cors from "cors";
+
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import mongoose from "mongoose";
@@ -30,7 +30,6 @@ import {
 } from "./mid-security/users.authentication.js";
 import { checkAdmin } from "./mid-admin/permission.admin.js";
 import arcjetMiddleware from "./mid-security/arcjet.middleware.js";
-// import { redirectIfLoggedIn } from './mid-functions/redirectIfLoggedIn.js';
 
 const app = express();
 connectToMongoDB();
@@ -52,7 +51,6 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(cspMiddleware);
 app.use(setCORP);
-// app.use(cors);
 
 const userValidation = validate({ body: userSchemaAccessValidator });
 const reagentValidation = validate({ body: reagentSchemaCreateValidator });
