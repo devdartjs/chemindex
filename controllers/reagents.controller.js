@@ -80,7 +80,6 @@ export const createReagent = async (req, res) => {
     const reagents = await Reagent.find({ userId, createdBy: userId });
     if (!reagents)
       return res.status(400).json({ message: "There is no reagents here!" });
-    console.log("reagents:", reagents.length);
 
     if (reagents.length >= 16) {
       alert(
@@ -92,8 +91,6 @@ export const createReagent = async (req, res) => {
     const { casNumber, ...fields } = req.body;
     if (!casNumber)
       return res.status(400).json({ message: "Invalid casNumber" });
-
-    console.log("userId-controller:", userId, "casNumber:", casNumber);
 
     const existingReagent = await Reagent.findOne({
       casNumber: casNumber.trim(),
@@ -107,10 +104,8 @@ export const createReagent = async (req, res) => {
       createdBy: userId,
     });
 
-    console.log("new Reagent:", newReagent);
     return res.status(201).json({ reagent: newReagent });
   } catch (err) {
-    console.error("Error while creating reagent:", err.message);
     return res.status(500).json({ message: "Server Error", err: err.message });
   }
 };
@@ -146,7 +141,6 @@ export const updateReagent = async (req, res) => {
       .status(200)
       .json({ message: "Product updated successfully!", updatedProduct });
   } catch (error) {
-    console.error("Error while updating product:", error);
     res
       .status(500)
       .json({ error: "Internal server error", details: error.message });
@@ -166,7 +160,6 @@ export const deleteReagent = async (req, res) => {
       casNumber: casNumber.trim(),
       createdBy: userId,
     });
-    console.log("console-(2):", deletedProduct);
 
     if (!deletedProduct) {
       return res
@@ -176,7 +169,6 @@ export const deleteReagent = async (req, res) => {
 
     res.status(200).json({ message: "Product deleted successfully!" });
   } catch (error) {
-    console.error("console-(error):", error);
     res.status(500).json({ error: error.message });
   }
 };

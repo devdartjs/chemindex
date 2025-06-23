@@ -46,7 +46,3 @@ export const getLoginPage = (req, res) => {
     user: res.locals.user,
   });
 };
-
-// export const getWaitingListPage = (req, res) => {
-//     return res.status(200).render('waiting-list', { nonce: res.locals.nonce, user: res.locals.user });
-// };

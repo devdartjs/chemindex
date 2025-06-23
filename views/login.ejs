@@ -35,19 +35,16 @@
 
           const email = formL.email.value;
           const password = formL.password.value;
-          console.log("email, password:", email, password);
 
           try {
             const csrfResponse = await fetch("/api/v1/token/csrf-token");
             const csrfData = await csrfResponse.json();
-            console.log("crsfData:", csrfData);
+
             const csrfToken = csrfData.csrf;
 
             if (!csrfToken) {
               console.log("Invalid csrf Token");
             }
-
-            console.log("token csrf:", csrfToken, "type:", typeof csrfToken);
 
             const res = await fetch("/api/v1/users/auth/login", {
               method: "POST",
@@ -59,14 +56,6 @@
             });
 
             const data = await res.json();
-            console.log(
-              "data:",
-              data,
-              "data-user:",
-              data.user,
-              "data-errors:",
-              data.errors
-            );
 
             emailErrorL.textContent = "";
             passwordErrorL.textContent = "";

@@ -4,12 +4,10 @@ import csrfErrorHandler from "../mid-security/csrf.error.handler.js";
 
 const csrfRouter = Router();
 
-csrfRouter.get('/csrf-token', csrfProtection, csrfErrorHandler, (req, res) => {
-    
-    const csrf = req.csrfToken();
-    console.log('Generated csrf-token:', csrf);
-    
-    res.status(200).json({ csrf });
+csrfRouter.get("/csrf-token", csrfProtection, csrfErrorHandler, (req, res) => {
+  const csrf = req.csrfToken();
+
+  res.status(200).json({ csrf });
 });
 
 export default csrfRouter;
