@@ -1,0 +1,100 @@
+userId:
+  post:
+    summary: Create a new reagent
+    tags:
+      - ReagentsStateRoutes
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        description: ID of the authenticated user
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - casNumber
+              - name
+              - quantity
+            properties:
+              casNumber:
+                type: string
+                example: "64-17-5"
+              name:
+                type: string
+                example: Ethanol
+              quantity:
+                type: number
+                example: 5.0
+    responses:
+      201:
+        description: Reagent created successfully
+      400:
+        description: Invalid input data
+      401:
+        description: Unauthorized
+casNumber:
+  put:
+    summary: Update an existing reagent by CAS number
+    tags:
+      - ReagentsStateRoutes
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: casNumber
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Updated Ethanol
+              quantity:
+                type: number
+                example: 10.0
+    responses:
+      200:
+        description: Reagent updated successfully
+      400:
+        description: Invalid input data
+      401:
+        description: Unauthorized
+      404:
+        description: Reagent not found
+
+  delete:
+    summary: Delete a reagent by CAS number
+    tags:
+      - ReagentsStateRoutes
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: casNumber
+        required: true
+        schema:
+          type: string
+    responses:
+      200:
+        description: Reagent deleted successfully
+      401:
+        description: Unauthorized
+      404:
+        description: Reagent not found

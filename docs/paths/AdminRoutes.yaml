@@ -1,0 +1,56 @@
+admin:
+  get:
+    summary: Access admin panel (requires admin permission)
+    tags:
+      - AdminRoutes
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: Admin panel loaded successfully
+        content:
+          text/html:
+            schema:
+              type: string
+              example: "<!DOCTYPE html><html>...</html>"
+      401:
+        description: Unauthorized
+      403:
+        description: Forbidden – not an admin
+
+login:
+  post:
+    summary: Admin login
+    tags:
+      - AdminRoutes
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+                format: email
+                example: admin@example.com
+              password:
+                type: string
+                format: password
+                example: AdminStrongPass123
+    responses:
+      200:
+        description: Login successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
+      401:
+        description: Invalid credentials

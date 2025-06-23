@@ -1,0 +1,90 @@
+home:
+  get:
+    summary: Home page
+    tags:
+      - UsersRoutes
+    responses:
+      200:
+        description: Successfully loaded the index page
+
+login:
+  get:
+    summary: Login page
+    tags:
+      - UsersRoutes
+    responses:
+      200:
+        description: Successfully loaded the login page
+
+sign-up:
+  get:
+    summary: Sign-up page
+    tags:
+      - UsersRoutes
+    responses:
+      200:
+        description: Successfully loaded the sign-up page
+
+dashboard-reagents:
+  get:
+    summary: Dashboard with reagents (requires authentication)
+    tags:
+      - UsersRoutes
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: Successfully loaded dashboard
+      401:
+        description: Unauthorized access
+
+user-system:
+  get:
+    summary: User system page (requires authentication)
+    tags:
+      - UsersRoutes
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: Successfully loaded user system page
+      401:
+        description: Unauthorized access
+
+user-register-session:
+  get:
+    summary: User registration session page (requires authentication)
+    tags:
+      - UsersRoutes
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: Successfully loaded registration page
+      401:
+        description: Unauthorized access
+
+user-update-session:
+  get:
+    summary: User update session page (requires authentication)
+    tags:
+      - UsersRoutes
+    security:
+      - bearerAuth: []
+    responses:
+      200:
+        description: Successfully loaded update page
+      401:
+        description: Unauthorized access
+#/waiting-list:
+#  get:
+#    summary: Waiting list page (requires authentication)
+#    tags:
+#      - UsersRoutes
+#    security:
+#      - bearerAuth: []
+#    responses:
+#      200:
+#        description: Successfully loaded waiting list
+#      401:
+#        description: Unauthorized access

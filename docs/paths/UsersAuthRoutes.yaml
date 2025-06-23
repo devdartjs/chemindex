@@ -1,0 +1,71 @@
+login:
+  post:
+    summary: User login
+    tags:
+      - UsersAuthRoutes
+    requestBody:
+      description: User credentials for login
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+                format: email
+                example: user@example.com
+              password:
+                type: string
+                format: password
+                example: strongPassword123
+    responses:
+      200:
+        description: Login successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
+      401:
+        description: Invalid credentials
+
+sign-up:
+  post:
+    summary: User sign-up
+    tags:
+      - UsersAuthRoutes
+    requestBody:
+      description: New user registration data
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - name
+              - email
+              - password
+            properties:
+              name:
+                type: string
+                example: John Doe
+              email:
+                type: string
+                format: email
+                example: johndoe@example.com
+              password:
+                type: string
+                format: password
+                example: StrongPassword123
+    responses:
+      201:
+        description: User created successfully
+      400:
+        description: Invalid input data

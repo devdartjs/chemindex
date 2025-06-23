@@ -1,6 +1,6 @@
 import express from "express";
 import helmet from "helmet";
-
+import setupSwagger from "./swagger.js";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import mongoose from "mongoose";
@@ -29,7 +29,7 @@ import {
   authentication,
 } from "./mid-security/users.authentication.js";
 import { checkAdmin } from "./mid-admin/permission.admin.js";
-import arcjetMiddleware from "./mid-security/arcjet.middleware.js";
+// import arcjetMiddleware from "./mid-security/arcjet.middleware.js";
 
 const app = express();
 connectToMongoDB();
@@ -52,10 +52,12 @@ app.use(helmet());
 app.use(cspMiddleware);
 app.use(setCORP);
 
+setupSwagger(app);
+
 const userValidation = validate({ body: userSchemaAccessValidator });
 const reagentValidation = validate({ body: reagentSchemaCreateValidator });
 
-app.use("/", arcjetMiddleware, checkUser, usersRouter);
+app.use("/", checkUser, usersRouter);
 app.use(
   "/api/v1/users/auth",
   sanitizeUsersInput,
@@ -63,16 +65,9 @@ app.use(
   userValidation,
   authRouterState
 );
-app.use(
-  "/api/v1/reagents/:userId",
-  arcjetMiddleware,
-  checkUser,
-  authentication,
-  reagentsRouter
-);
+app.use("/api/v1/reagents/:userId", checkUser, authentication, reagentsRouter);
 app.use(
   "/api/v1/reagents/auth/:userId",
-  arcjetMiddleware,
   checkUser,
   authentication,
   reagentValidation,

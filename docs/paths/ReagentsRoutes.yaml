@@ -1,0 +1,56 @@
+userId:
+  get:
+    summary: Get all reagents
+    tags:
+      - ReagentsRoutes
+    responses:
+      200:
+        description: List of all reagents
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  casNumber:
+                    type: string
+                    example: "64-17-5"
+                  name:
+                    type: string
+                    example: Ethanol
+                  quantity:
+                    type: number
+                    example: 5.0
+
+casNumber:
+  get:
+    summary: Get reagent by CAS number
+    tags:
+      - ReagentsRoutes
+    parameters:
+      - in: path
+        name: casNumber
+        required: true
+        schema:
+          type: string
+        description: CAS number of the reagent
+    responses:
+      200:
+        description: Reagent found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                casNumber:
+                  type: string
+                  example: "64-17-5"
+                name:
+                  type: string
+                  example: Ethanol
+                quantity:
+                  type: number
+                  example: 5.0
+      404:
+        description: Reagent not found

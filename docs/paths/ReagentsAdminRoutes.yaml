@@ -1,0 +1,149 @@
+reagents:
+  get:
+    summary: Get all reagents from all users
+    tags:
+      - AdminReagentsRoutes
+    responses:
+      200:
+        description: List of all reagents
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  casNumber:
+                    type: string
+                  name:
+                    type: string
+                  quantity:
+                    type: number
+
+userId:
+  get:
+    summary: Get all reagents of a specific user
+    tags:
+      - AdminReagentsRoutes
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+    responses:
+      200:
+        description: List of user reagents
+      404:
+        description: User not found
+
+  post:
+    summary: Create a reagent for a specific user
+    tags:
+      - AdminReagentsRoutes
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - casNumber
+              - name
+              - quantity
+            properties:
+              casNumber:
+                type: string
+                example: "64-17-5"
+              name:
+                type: string
+                example: Ethanol
+              quantity:
+                type: number
+                example: 5.0
+    responses:
+      201:
+        description: Reagent created
+      400:
+        description: Invalid data
+
+casNumber:
+  get:
+    summary: Get specific reagent of a user by CAS number
+    tags:
+      - AdminReagentsRoutes
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: casNumber
+        required: true
+        schema:
+          type: string
+    responses:
+      200:
+        description: Reagent found
+      404:
+        description: Reagent not found
+
+  put:
+    summary: Update a reagent for a user
+    tags:
+      - AdminReagentsRoutes
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: casNumber
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Updated Ethanol
+              quantity:
+                type: number
+                example: 10.0
+    responses:
+      200:
+        description: Reagent updated
+      400:
+        description: Invalid input
+      404:
+        description: Reagent not found
+
+  delete:
+    summary: Delete a reagent for a user
+    tags:
+      - AdminReagentsRoutes
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: casNumber
+        required: true
+        schema: t

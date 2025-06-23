@@ -21,6 +21,7 @@
     "@arcjet/node": "^1.0.0-beta.7",
     "audit": "^0.0.6",
     "bcrypt": "^5.1.1",
+    "chalk": "^5.4.1",
     "cookie-parser": "^1.4.7",
     "crypto": "^1.0.1",
     "csurf": "^1.2.2",
@@ -35,10 +36,15 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.1.10",
     "sanitize-html": "^2.16.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "terser": "^5.43.0",
     "validator": "^13.15.0",
-    "view-engine": "^1.1.1"
+    "view-engine": "^1.1.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "jest": "^30.0.0"
+    "jest": "^30.0.0",
+    "swagger-cli": "^4.0.4"
   }
 }
