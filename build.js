@@ -11,54 +11,88 @@ import {
   writeFileSync,
   copyFileSync,
 } from "fs";
-import { minify } from "terser";
+import { minify as minifyJS } from "terser";
+import CleanCSS from "clean-css";
+import { minify as minifyHTML } from "html-minifier-terser";
 import chalk from "chalk";
 
+// Setup
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const distDir = path.join(__dirname, "dist");
 const extensionsToCopy = [".js", ".html", ".css", ".json"];
+const ignoredFolders = ["node_modules", "dist", ".git"];
+const ignoredFiles = ["build.js"];
 
 console.log(chalk.blue("\n📦 Iniciando build..."));
+console.time("⏱ Tempo total de build");
 
-// 1. Remove e recria a pasta dist
+// Limpa a pasta dist
 if (fs.existsSync(distDir)) {
   rmSync(distDir, { recursive: true, force: true });
 }
 mkdirSync(distDir);
 console.log(chalk.green("🧹 Pasta dist limpa e recriada."));
 
-// 2. Lê arquivos da raiz do projeto
-const files = readdirSync(__dirname);
+// Função principal
+async function copyAndMinifyRecursive(srcDir, destDir) {
+  mkdirSync(destDir, { recursive: true });
 
-for (const file of files) {
-  const filePath = path.join(__dirname, file);
-  const fileStat = statSync(filePath);
+  const entries = readdirSync(srcDir);
+  const tasks = entries.map(async (entry) => {
+    const srcPath = path.join(srcDir, entry);
+    const destPath = path.join(destDir, entry);
+    const stats = statSync(srcPath);
 
-  if (
-    fileStat.isFile() &&
-    file !== "build.js" &&
-    extensionsToCopy.includes(path.extname(file))
-  ) {
-    const destPath = path.join(distDir, file);
-
-    if (path.extname(file) === ".js") {
-      try {
-        const code = readFileSync(filePath, "utf8");
-        const result = await minify(code);
-        writeFileSync(destPath, result.code);
-        console.log(chalk.green(`✅ Minificado: ${file}`));
-      } catch (err) {
-        console.error(
-          chalk.red(`❌ Erro ao minificar ${file}: ${err.message}`)
-        );
+    if (stats.isDirectory()) {
+      if (!ignoredFolders.includes(entry)) {
+        await copyAndMinifyRecursive(srcPath, destPath);
       }
-    } else {
-      copyFileSync(filePath, destPath);
-      console.log(chalk.yellow(`📄 Copiado sem minificação: ${file}`));
+    } else if (
+      stats.isFile() &&
+      !ignoredFiles.includes(entry) &&
+      extensionsToCopy.includes(path.extname(entry))
+    ) {
+      const ext = path.extname(entry);
+      try {
+        const code = readFileSync(srcPath, "utf8");
+
+        if (ext === ".js") {
+          const result = await minifyJS(code);
+          writeFileSync(destPath, result.code);
+          logSuccess(entry, result.code);
+        } else if (ext === ".css") {
+          const result = new CleanCSS().minify(code);
+          writeFileSync(destPath, result.styles);
+          logSuccess(entry, result.styles);
+        } else if (ext === ".html") {
+          const result = await minifyHTML(code, {
+            collapseWhitespace: true,
+            removeComments: true,
+            minifyJS: true,
+            minifyCSS: true,
+          });
+          writeFileSync(destPath, result);
+          logSuccess(entry, result);
+        } else {
+          copyFileSync(srcPath, destPath);
+          console.log(chalk.yellow(`📄 Copiado: ${entry}`));
+        }
+      } catch (err) {
+        console.error(chalk.red(`❌ Erro em ${entry}: ${err.message}`));
+      }
     }
-  }
+  });
+
+  await Promise.all(tasks);
 }
 
+function logSuccess(filename, content) {
+  const sizeKB = (Buffer.byteLength(content, "utf8") / 1024).toFixed(2);
+  console.log(chalk.green(`✅ Minificado: ${filename} (${sizeKB} KB)`));
+}
+
+await copyAndMinifyRecursive(__dirname, distDir);
+
+console.timeEnd("⏱ Tempo total de build");
 console.log(chalk.blueBright("\n🚀 Build finalizado com sucesso!\n"));

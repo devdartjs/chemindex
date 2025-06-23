@@ -1,0 +1,1 @@
+import csrf from"csurf";const csrfProtection=csrf({cookie:{httpOnly:!0,secure:!1}});export default csrfProtection;

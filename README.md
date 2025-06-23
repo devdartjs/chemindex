@@ -18,17 +18,28 @@ A RESTful API for managing chemical reagents, user accounts, and administrative 
 ## 📂 Project Structure
 
 chemindex/
-├── controllers/
-├── docs/
-│ ├── swagger.yaml
-│ ├── swagger-bundle.yaml
-│ ├── paths/
-│ └── components/
-├── middlewares/
-├── routes/
-├── services/
-├── app.js
-└── README.md
+.
+├── README.md  
+├── package.json  
+├── app.js  
+├── admin/  
+├── controllers/  
+├── config/  
+├── database/  
+├── docs/  
+├── jest.config.js  
+├── mid-admin/  
+├── mid-clean-inputs/  
+├── mid-functions/  
+├── mid-security/  
+├── models/  
+├── public/  
+├── route.csurf  
+├── routes/  
+├── tests/  
+├── utils/  
+├── views/  
+└── vSDLC-Docs/
 
 ---
 
@@ -49,6 +60,10 @@ chemindex/
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
+
+### 2. Install dependencies
+
+### 3. Run app locally
 
 ```bash
 git clone https://github.com/your-username/chemindex.git

@@ -1,0 +1,1 @@
+const csrfErrorHandler=(r,e,n,o)=>{if("EBADCSRFTOKEN"!==r.code)return o(r);n.status(403).json({error:"invalid CSRF token or inexistent."})};export default csrfErrorHandler;

@@ -1,0 +1,1 @@
+import{Router}from"express";import csrfProtection from"../mid-security/csrf.create.token.js";import csrfErrorHandler from"../mid-security/csrf.error.handler.js";const csrfRouter=Router();csrfRouter.get("/csrf-token",csrfProtection,csrfErrorHandler,(r,o)=>{const e=r.csrfToken();console.log("Generated csrf-token:",e),o.status(200).json({csrf:e})});export default csrfRouter;

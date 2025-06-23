@@ -1,0 +1,1 @@
+import jwt from"jsonwebtoken";export const redirectIfLoggedIn=(r,t,e)=>{const o=r.cookies.jwt;if(!o)return e();try{const r=jwt.verify(o,process.env.JWT_SECRET);if(r&&r.id)return t.redirect("/")}catch(r){return e()}};
