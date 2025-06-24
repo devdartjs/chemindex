@@ -1,1 +1,1 @@
-import escape from"escape-html";const escapeFields=["email","password"];export const escapeUserInput=(e,s,o)=>{try{escapeFields.forEach(s=>{e.body[s]&&(e.body[s]=escape(e.body[s]))}),console.log("Escaped Product Fields:",e.body),o()}catch(e){return s.status(500).json({error:"Failed to escape product fields"})}};
+import escape from"escape-html";const escapeFields=["email","password"];export const escapeUserInput=(e,s,o)=>{try{escapeFields.forEach(s=>{e.body[s]&&(e.body[s]=escape(e.body[s]))}),o()}catch(e){return s.status(500).json({error:"Failed to escape product fields"})}};

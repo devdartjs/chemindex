@@ -1,1 +1,0 @@
-export function sum(n,r){return n+r}export function sub(n,r){return n-r}
