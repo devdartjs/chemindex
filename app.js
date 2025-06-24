@@ -39,6 +39,13 @@ const __dirname = path.dirname(__filename);
 const viewPath = path.resolve(__dirname, "views");
 const publicPath = path.resolve(__dirname, "public");
 
+const staticPath =
+  NODE_ENV === "production"
+    ? path.resolve(__dirname, "dist", "public")
+    : path.resolve(__dirname, "public");
+
+app.use(express.static(staticPath));
+
 app.set("view engine", "ejs");
 app.set("views", viewPath);
 

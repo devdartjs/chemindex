@@ -26,9 +26,11 @@ WORKDIR /app
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/app.js ./app.js
+COPY --from=builder /app/.env ./  
 
 # Expose the port your app runs on (adjust as needed)
 EXPOSE 3000
 
 # Command to run the application
-CMD ["node", "dist/index.js"]
+CMD ["node", "app.js"]
