@@ -27,14 +27,12 @@ const ignoredFiles = ["build.js"];
 console.log(chalk.blue("\n📦 Iniciando build..."));
 console.time("⏱ Tempo total de build");
 
-// Limpa a pasta dist
 if (fs.existsSync(distDir)) {
   rmSync(distDir, { recursive: true, force: true });
 }
 mkdirSync(distDir);
 console.log(chalk.green("🧹 Pasta dist limpa e recriada."));
 
-// Função principal
 async function copyAndMinifyRecursive(srcDir, destDir) {
   mkdirSync(destDir, { recursive: true });
 
