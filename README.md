@@ -5,18 +5,12 @@ Designed for laboratory inventory management with modular architecture and role-
 
 ---
 
-## 📘 Preview do App
-
-## <img src="https://raw.githubusercontent.com/devdartjs/chemindex/main/public/images/chemindex-image.png" alt="App Preview - ChemIndex" width="600"/>
-
 ## 📚 Table of Contents
 
 - [📦 Features](#-features)
 - [⚙️ Technologies Used](#️-technologies-used)
 - [🧑‍💼 Getting Started](#-getting-started)
 - [📘 API Documentation (Swagger UI)](#-api-documentation-swagger-ui)
-- [🐳 Docker Support](#-docker-support)
-- [🧩 Environment Variables](#-environment-variables)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [🗂️ Project Structure](#️-project-structure)
@@ -105,6 +99,8 @@ This project is licensed under the MIT License.
 ---
 
 ## 🗂️ Project Structure
+
+```bash
 
 indexchem/
 ├── .env.development.local
@@ -239,6 +235,8 @@ indexchem/
 ├── sign-up.ejs
 ├── user-system.ejs
 └── waiting-list.ejs
+
+```
 
 ---
 
