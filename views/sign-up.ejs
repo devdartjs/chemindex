@@ -36,12 +36,18 @@
           const password = formS.password.value;
 
           try {
-            const csrfResponse = await fetch("/api/v1/token/crsf-token");
+            const csrfResponse = await fetch("/api/v1/token/csrf-token");
+
+            if (!csrfResponse.ok) {
+              throw new Error("Failed to fetch CSRF token");
+            }
+
             const csrfData = await csrfResponse.json();
             const csrfToken = csrfData.csrf;
 
             if (!csrfToken) {
               console.log("Invalid csrf Token");
+              throw new Error("Invalid csrf Token");
             }
 
             const res = await fetch("/api/v1/users/auth/sign-up", {

@@ -1,4 +1,4 @@
-import express from "express"; //
+import express from "express";
 import helmet from "helmet";
 import setupSwagger from "./swagger.js";
 import cookieParser from "cookie-parser";
@@ -29,7 +29,7 @@ import {
   authentication,
 } from "./mid-security/users.authentication.js";
 import { checkAdmin } from "./mid-admin/permission.admin.js";
-// import arcjetMiddleware from "./mid-security/arcjet.middleware.js";
+import arcjetMiddleware from "./mid-security/arcjet.middleware.js";
 
 const app = express();
 connectToMongoDB();
@@ -58,6 +58,7 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(cspMiddleware);
 app.use(setCORP);
+app.use(arcjetMiddleware);
 
 setupSwagger(app);
 
@@ -102,12 +103,19 @@ app.use("/logout", (req, res) => {
   res.redirect("/");
 });
 
+app.get("/test", (req, res) => {
+  console.log("Test route hit");
+  res.status(200).json({ message: "Test route is working" });
+});
+
 app.use((req, res) => {
-  res.status(400).render("404", { message: "Error 404: Page not Found" });
+  res.status(404).render("404", { message: "Error 404: Page not Found" });
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Server running at port ${PORT} and ${NODE_ENV} mode`);
+  console.log(
+    `✅ Server running at port ${PORT} and ${NODE_ENV} mode on: http://localhost:${PORT}`
+  );
 });
 
 export default app;

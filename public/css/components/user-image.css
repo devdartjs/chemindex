@@ -1,0 +1,15 @@
+.dashboard-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dashboard-avatar {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+  padding: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}

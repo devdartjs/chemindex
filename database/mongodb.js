@@ -4,9 +4,9 @@ import { DB_URI } from "../config/config.env.js";
 const connectToMongoDB = async () => {
   try {
     await mongoose.connect(DB_URI);
-    console.log("✅ Conectado ao MongoDB com sucesso!");
+    console.log("✅ Connected to the database!");
   } catch (err) {
-    console.error("❌ Erro ao conectar ao MongoDB:", err.message);
+    console.error("❌ Error to cocnect to MongoDB:", err.message);
     console.error("Erro completo:", err);
   }
 };

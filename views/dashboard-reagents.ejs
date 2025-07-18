@@ -6,20 +6,41 @@
 
     <main class="dashboard">
       <section class="dashboard-info">
+        <br>        
         <h2>Dashboard</h2>
-        <p>Manage your reagents easily</p>
-        <p>Welcome, <strong><%= user.email %></strong>!</p>
-        <hr />
-        <p>
-          <a href="/">Reagents quantity: </a>
+        <p>Manage your reagents easily</p>  
+        <br>
+        <p>Logged in as user:</p>      
+        <div class="dashboard-user-info">
           
+        <img
+          src='/images/user.svg'
+          alt="User Icon"
+          class="dashboard-avatar"
+        />
+        
+        <p>Welcome, <strong><%= user.email %></strong>!</p>
+        </div>
+        <br>
+        <hr />
+
+        <p>
+          <br>
+          <a href="/">Reagents quantity: </a>         
           <span id="dashboard-reagents-quantity"></span>
+          <br>
+          <br>
           <hr />
         </p>
+        <a><p>Actions:</p></a>
+        <br>
         <a href="/user-system"><p>Access system</p></a>
         
         <a href="/user-register-session"><p>Add reagents</p></a>
         <a href="/user-update-session"><p>Update reagents</p></a>
+        <a href="/swagger"><p>Documentation</p></a>
+        <br>
+        <br>
         <hr />
       </section>
 
