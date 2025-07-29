@@ -1,11 +1,11 @@
-# ✅ Chemindex API
+# 🟢 Chemindex API
 
 A scalable and secure RESTful API for managing chemical reagents and user access, built with **Node.js**, **Express**, and **MongoDB Atlas**, and fully documented with **OpenAPI 3.0 (Swagger)**.  
 Designed for laboratory inventory management with modular architecture and role-based permissions.
 
 ---
 
-## 📚 Table of Contents
+## 🔵 Table of Contents
 
 - [📦 Features](#-features)
 - [⚙️ Technologies Used](#️-technologies-used)
@@ -17,7 +17,7 @@ Designed for laboratory inventory management with modular architecture and role-
 
 ---
 
-## 🔍 Features
+## 🟠 Features
 
 - 🔐 JWT-based authentication and route protection
 - 🧑‍💼 Role-based access control (admin & user)
@@ -28,7 +28,7 @@ Designed for laboratory inventory management with modular architecture and role-
 
 ---
 
-## 💻 Technologies Used
+## 🟡 Technologies Used
 
 - **Node.js** + **Express.js**
 - **MongoDB Atlas** for cloud-hosted NoSQL database
@@ -41,15 +41,15 @@ Designed for laboratory inventory management with modular architecture and role-
 
 ---
 
-## 🧑‍💼 Getting Started
+## 🟣 Getting Started
 
-## 🔧 Prerequisites
+## 🟡 Prerequisites
 
 - Node.js (>= 18.x)
 - MongoDB Atlas account (or local MongoDB instance)
 - Docker (optional for containerized deployment)
 
-## 📥 Clone the repository
+## ⚪ Clone the repository
 
 ```bash
 git clone https://github.com/your-username/chemindex.git
@@ -68,7 +68,7 @@ npm install
 npm run dev
 ```
 
-## 📘 API Documentation (Swagger UI)
+## 🟤 API Documentation (Swagger UI)
 
 Access the Swagger UI to explore and test the API:
 
@@ -78,7 +78,7 @@ Bundled YAML: http://localhost:3000/api-docs/swagger-bundle.yaml
 
 ---
 
-## 📘 Contributing
+## ⚪ Contributing
 
 Contributions are welcome!
 Feel free to open issues or submit pull requests for new features, bug fixes, or improvements.
@@ -92,13 +92,13 @@ Open a Pull Request
 
 ---
 
-## 📄 License
+## ⚪ License
 
 This project is licensed under the MIT License.
 
 ---
 
-## 🗂️ Project Structure
+## 🟢 Project Structure
 
 ```bash
 
