@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import emailVal from "validator";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const { isEmail } = emailVal;
 
