@@ -1,4 +1,4 @@
-name: CI - chemindex
+name: CI/CD - chemindex
 
 on:
   push:

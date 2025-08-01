@@ -29,7 +29,7 @@ import {
   authentication,
 } from "./mid-security/users.authentication.js";
 import { checkAdmin } from "./mid-admin/permission.admin.js";
-// import arcjetMiddleware from "./mid-security/arcjet.middleware.js";
+// import arcjetMiddleware from "./mid-security/arcjet.middleware.js";//
 
 const app = express();
 connectToMongoDB();
