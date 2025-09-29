@@ -2,9 +2,9 @@ openapi: 3.0.0
 info:
   title: API DOCUMENTATION
   version: 1.0.0
-  description: "This API handles user management, reagent tracking, and administrative operations for the Chemindex system."
+  description: 'This API handles user management, reagent tracking, and administrative operations for the Chemindex system.'
 servers:
-  - url: "http://localhost:3000"
+  - url: 'http://localhost:3000'
 tags:
   - name: UsersRoutes
     description: Endpoints for user pages and session access
@@ -27,7 +27,7 @@ paths:
       tags:
         - UsersRoutes
       responses:
-        "200":
+        '200':
           description: Successfully loaded the index page
   /login:
     get:
@@ -35,7 +35,7 @@ paths:
       tags:
         - UsersRoutes
       responses:
-        "200":
+        '200':
           description: Successfully loaded the login page
   /sign-up:
     get:
@@ -43,7 +43,7 @@ paths:
       tags:
         - UsersRoutes
       responses:
-        "200":
+        '200':
           description: Successfully loaded the sign-up page
   /dashboard-reagents:
     get:
@@ -53,9 +53,9 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: Successfully loaded dashboard
-        "401":
+        '401':
           description: Unauthorized access
   /user-system:
     get:
@@ -65,9 +65,9 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: Successfully loaded user system page
-        "401":
+        '401':
           description: Unauthorized access
   /user-register-session:
     get:
@@ -77,9 +77,9 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: Successfully loaded registration page
-        "401":
+        '401':
           description: Unauthorized access
   /user-update-session:
     get:
@@ -89,9 +89,9 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: Successfully loaded update page
-        "401":
+        '401':
           description: Unauthorized access
   /api/v1/users/auth/login:
     post:
@@ -118,7 +118,7 @@ paths:
                   format: password
                   example: strongPassword123
       responses:
-        "200":
+        '200':
           description: Login successful
           content:
             application/json:
@@ -128,7 +128,7 @@ paths:
                   token:
                     type: string
                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
-        "401":
+        '401':
           description: Invalid credentials
   /api/v1/users/auth/sign-up:
     post:
@@ -159,17 +159,17 @@ paths:
                   format: password
                   example: StrongPassword123
       responses:
-        "201":
+        '201':
           description: User created successfully
-        "400":
+        '400':
           description: Invalid input data
-  "/api/v1/reagents/{userId}":
+  '/api/v1/reagents/{userId}':
     get:
       summary: Get all reagents
       tags:
         - ReagentsRoutes
       responses:
-        "200":
+        '200':
           description: List of all reagents
           content:
             application/json:
@@ -187,7 +187,7 @@ paths:
                     quantity:
                       type: number
                       example: 5
-  "/api/v1/reagents/{userId}/{casNumber}":
+  '/api/v1/reagents/{userId}/{casNumber}':
     get:
       summary: Get reagent by CAS number
       tags:
@@ -200,7 +200,7 @@ paths:
             type: string
           description: CAS number of the reagent
       responses:
-        "200":
+        '200':
           description: Reagent found
           content:
             application/json:
@@ -216,9 +216,9 @@ paths:
                   quantity:
                     type: number
                     example: 5
-        "404":
+        '404':
           description: Reagent not found
-  "/api/v1/reagents/auth/{userId}":
+  '/api/v1/reagents/auth/{userId}':
     post:
       summary: Create a new reagent
       tags:
@@ -251,13 +251,13 @@ paths:
                   type: number
                   example: 5
       responses:
-        "201":
+        '201':
           description: Reagent created successfully
-        "400":
+        '400':
           description: Invalid input data
-        "401":
+        '401':
           description: Unauthorized
-  "/api/v1/reagents/auth/{userId}/{casNumber}":
+  '/api/v1/reagents/auth/{userId}/{casNumber}':
     put:
       summary: Update an existing reagent by CAS number
       tags:
@@ -287,13 +287,13 @@ paths:
                   type: number
                   example: 10
       responses:
-        "200":
+        '200':
           description: Reagent updated successfully
-        "400":
+        '400':
           description: Invalid input data
-        "401":
+        '401':
           description: Unauthorized
-        "404":
+        '404':
           description: Reagent not found
     delete:
       summary: Delete a reagent by CAS number
@@ -311,11 +311,11 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Reagent deleted successfully
-        "401":
+        '401':
           description: Unauthorized
-        "404":
+        '404':
           description: Reagent not found
   /api/v1/admin:
     get:
@@ -325,16 +325,16 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: Admin panel loaded successfully
           content:
             text/html:
               schema:
                 type: string
                 example: <!DOCTYPE html><html>...</html>
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: Forbidden – not an admin
   /api/v1/admin/login:
     post:
@@ -360,7 +360,7 @@ paths:
                   format: password
                   example: AdminStrongPass123
       responses:
-        "200":
+        '200':
           description: Login successful
           content:
             application/json:
@@ -370,7 +370,7 @@ paths:
                   token:
                     type: string
                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
-        "401":
+        '401':
           description: Invalid credentials
   /api/v1/admin/reagents:
     get:
@@ -378,7 +378,7 @@ paths:
       tags:
         - AdminReagentsRoutes
       responses:
-        "200":
+        '200':
           description: List of all reagents
           content:
             application/json:
@@ -395,7 +395,7 @@ paths:
                       type: string
                     quantity:
                       type: number
-  "/api/v1/admin/reagents/{userId}":
+  '/api/v1/admin/reagents/{userId}':
     get:
       summary: Get all reagents of a specific user
       tags:
@@ -407,9 +407,9 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: List of user reagents
-        "404":
+        '404':
           description: User not found
     post:
       summary: Create a reagent for a specific user
@@ -442,11 +442,11 @@ paths:
                   type: number
                   example: 5
       responses:
-        "201":
+        '201':
           description: Reagent created
-        "400":
+        '400':
           description: Invalid data
-  "/api/v1/admin/reagents/{userId}/{casNumber}":
+  '/api/v1/admin/reagents/{userId}/{casNumber}':
     get:
       summary: Get specific reagent of a user by CAS number
       tags:
@@ -463,9 +463,9 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Reagent found
-        "404":
+        '404':
           description: Reagent not found
     put:
       summary: Update a reagent for a user
@@ -496,11 +496,11 @@ paths:
                   type: number
                   example: 10
       responses:
-        "200":
+        '200':
           description: Reagent updated
-        "400":
+        '400':
           description: Invalid input
-        "404":
+        '404':
           description: Reagent not found
     delete:
       summary: Delete a reagent for a user
@@ -524,7 +524,7 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: List of all users
           content:
             application/json:
@@ -571,11 +571,11 @@ paths:
                   format: password
                   example: StrongPass123!
       responses:
-        "201":
+        '201':
           description: User created successfully
-        "400":
+        '400':
           description: Invalid input data
-  "/api/v1/admin/users/{userId}":
+  '/api/v1/admin/users/{userId}':
     get:
       summary: Get a specific user by ID
       tags:
@@ -589,9 +589,9 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: User found
-        "404":
+        '404':
           description: User not found
     put:
       summary: Update user data
@@ -622,11 +622,11 @@ paths:
                   type: string
                   example: NewPassword456
       responses:
-        "200":
+        '200':
           description: User updated successfully
-        "400":
+        '400':
           description: Invalid data
-        "404":
+        '404':
           description: User not found
     delete:
       summary: Delete user by ID
@@ -641,9 +641,9 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: User deleted
-        "404":
+        '404':
           description: User not found
 components:
   securitySchemes:

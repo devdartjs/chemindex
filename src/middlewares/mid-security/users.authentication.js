@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
-import User from "../../models/user.model.js";
-import { JWT_SECRET } from "../../config/config.env.js";
+import jwt from 'jsonwebtoken';
+import User from '../../models/user.model.js';
+import { JWT_SECRET } from '../../config/config.env.js';
 
 export const authentication = (req, res, next) => {
   const token = req.cookies.jwt;
@@ -8,7 +8,7 @@ export const authentication = (req, res, next) => {
   if (token) {
     jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
       if (err) {
-        return res.redirect("/login");
+        return res.redirect('/login');
       } else {
         res.locals.user._id = { _id: decodedToken.id };
 
@@ -16,7 +16,7 @@ export const authentication = (req, res, next) => {
       }
     });
   } else {
-    res.redirect("/login");
+    res.redirect('/login');
   }
 };
 

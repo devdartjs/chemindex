@@ -1,28 +1,28 @@
-import mongoose from "mongoose";
-import sanitizeHtml from "sanitize-html";
+import mongoose from 'mongoose';
+import sanitizeHtml from 'sanitize-html';
 
 const reagentSchema = mongoose.Schema({
   casNumber: {
     type: String,
-    required: [true, "CAS Number is required"],
+    required: [true, 'CAS Number is required'],
     trim: true,
   },
   reagentName: {
     type: String,
-    required: [true, "Reagent name is required"],
+    required: [true, 'Reagent name is required'],
   },
   description: {
     type: String,
-    required: [true, "description is required"],
+    required: [true, 'description is required'],
   },
   classe: {
     type: String,
-    required: [true, "class is required"],
+    required: [true, 'class is required'],
   },
   quantity: {
     type: Number,
-    required: [true, "Quantity is required"],
-    min: [1, "Quantity must be at least 1"],
+    required: [true, 'Quantity is required'],
+    min: [1, 'Quantity must be at least 1'],
   },
   composition: [
     {
@@ -32,55 +32,55 @@ const reagentSchema = mongoose.Schema({
   ],
   brand: {
     type: String,
-    required: [true, "brand is required"],
+    required: [true, 'brand is required'],
   },
   manufactureDate: {
     type: Date,
-    required: [false, "Manufacture date is required"],
+    required: [false, 'Manufacture date is required'],
   },
   expiryDate: {
     type: Date,
-    required: [false, "expire date is required"],
+    required: [false, 'expire date is required'],
   },
   information: [String],
   classification: {
     type: String,
-    required: [true, "classification is required"],
+    required: [true, 'classification is required'],
   },
   local: {
     type: String,
-    required: [true, "Location is required"],
+    required: [true, 'Location is required'],
   },
   volume: {
     type: String,
-    required: [true, "volume is required"],
+    required: [true, 'volume is required'],
   },
   weight: {
     type: String,
-    required: [true, "Weight is required"],
+    required: [true, 'Weight is required'],
   },
   molecularFormula: {
     type: String,
-    required: [true, "Molecular formula is required"],
+    required: [true, 'Molecular formula is required'],
   },
   molecularWeight_g_per_mol: {
     type: String,
-    required: [true, "Molecular weight is required"],
+    required: [true, 'Molecular weight is required'],
   },
   furtherInformations: {
     type: String,
-    default: "",
+    default: '',
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: 'user',
     required: false,
   },
 });
 
 reagentSchema.index({ casNumber: 1, createdBy: 1 }, { unique: true });
 
-reagentSchema.pre("save", function (next) {
+reagentSchema.pre('save', function (next) {
   this.casNumber = sanitizeHtml(this.casNumber, {
     allowedTags: [],
     allowedAttributes: {},
@@ -110,7 +110,7 @@ reagentSchema.pre("save", function (next) {
     allowedAttributes: {},
   });
   if (this.composition && Array.isArray(this.composition)) {
-    this.composition = this.composition.map((item) => {
+    this.composition = this.composition.map(item => {
       item.substance = sanitizeHtml(item.substance, {
         allowedTags: [],
         allowedAttributes: {},
@@ -123,7 +123,7 @@ reagentSchema.pre("save", function (next) {
       return item;
     });
   }
-  this.information = this.information.map((info) =>
+  this.information = this.information.map(info =>
     sanitizeHtml(info, { allowedTags: [], allowedAttributes: {} })
   );
   this.volume = sanitizeHtml(this.volume, {
@@ -150,9 +150,9 @@ reagentSchema.pre("save", function (next) {
   next();
 });
 
-reagentSchema.post("save", function (doc, next) {
+reagentSchema.post('save', function (doc, next) {
   next();
 });
 
-const Reagent = mongoose.model("Reagent", reagentSchema);
+const Reagent = mongoose.model('Reagent', reagentSchema);
 export default Reagent;

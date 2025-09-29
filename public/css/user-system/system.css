@@ -15,7 +15,9 @@
   width: 350px; /* Aumentado a largura das caixas */
   height: 400px; /* Aumentado a altura das caixas */
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
 }
 
 .service:hover {
@@ -34,7 +36,9 @@
 .service p {
   font-size: 1.2rem; /* Aumentado o tamanho da fonte do texto */
   color: rgba(21, 20, 20, 0.445); /* Cor da fonte cinza claro para o texto */
-  font-family: Work sans, arial;
+  font-family:
+    Work sans,
+    arial;
 }
 
 .icon {
@@ -45,7 +49,9 @@
 
 .update-button,
 .register-button {
-  font-family: Work sans, arial;
+  font-family:
+    Work sans,
+    arial;
   font-size: 25px;
   padding: 5px 15px;
   border-radius: 5px;
@@ -84,7 +90,9 @@
 
 #p-register,
 #p-search {
-  font-family: Work sans, arial;
+  font-family:
+    Work sans,
+    arial;
   font-weight: 400;
 }
 

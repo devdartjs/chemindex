@@ -12,7 +12,7 @@ admin:
           text/html:
             schema:
               type: string
-              example: "<!DOCTYPE html><html>...</html>"
+              example: '<!DOCTYPE html><html>...</html>'
       401:
         description: Unauthorized
       403:

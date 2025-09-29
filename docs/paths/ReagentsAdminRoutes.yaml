@@ -62,7 +62,7 @@ userId:
             properties:
               casNumber:
                 type: string
-                example: "64-17-5"
+                example: '64-17-5'
               name:
                 type: string
                 example: Ethanol

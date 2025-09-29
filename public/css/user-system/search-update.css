@@ -1,116 +1,115 @@
 /* Estilo para o título */
 #h1-search-update {
-    font-family: "Manrope", Arial, sans-serif;
-    font-size: 2.5em;
-    text-align: center;
-    color: rgba(64, 64, 232, 0.94);
-    margin-top: 0;
-    margin-bottom: 0;
+  font-family: 'Manrope', Arial, sans-serif;
+  font-size: 2.5em;
+  text-align: center;
+  color: rgba(64, 64, 232, 0.94);
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Estilos do formulário */
 #reagentForm-search-update {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: #1E1E2F;
-    border-radius: 8px;
-    padding: 2em;
-    color: #FFF;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #1e1e2f;
+  border-radius: 8px;
+  padding: 2em;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Estilos para as divs de entrada */
-.div1-search-update, .div2-search-update, .div3-search-update {
-    width: 30%;
-    font-family: "Work Sans", Arial, sans-serif;
-    font-size: 18px;
-    padding: 1em;
-    background-color: #2A2A3F;
-    border-radius: 6px;
+.div1-search-update,
+.div2-search-update,
+.div3-search-update {
+  width: 30%;
+  font-family: 'Work Sans', Arial, sans-serif;
+  font-size: 18px;
+  padding: 1em;
+  background-color: #2a2a3f;
+  border-radius: 6px;
 }
 
-.SUD-buttons{
-    display: flex;
-    flex-direction: row;
-    
+.SUD-buttons {
+  display: flex;
+  flex-direction: row;
 }
-
-
 
 /* Estilo do botão de envio */
 .SUD-submit-button {
-    width: 25em;
-    margin-left: 1em;
-    margin-bottom: 0.1em;
-    margin-top: 0.5em;
-    background-color: rgba(64, 64, 232, 0.94);
-    color: #FFF;
-    font-size: 18px;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+  width: 25em;
+  margin-left: 1em;
+  margin-bottom: 0.1em;
+  margin-top: 0.5em;
+  background-color: rgba(64, 64, 232, 0.94);
+  color: #fff;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .SUD-submit-button:hover {
-    box-shadow: 0 0 7px black; 
-    opacity: 0.95;
+  box-shadow: 0 0 7px black;
+  opacity: 0.95;
 }
 
 .SUD-submit-button:active {
-    box-shadow: 0 0 0px black; 
-    color: rgba(64, 64, 232, 0.94);
-    background-color: aliceblue;
-    border: 1px solid  rgba(64, 64, 232, 0.94);
+  box-shadow: 0 0 0px black;
+  color: rgba(64, 64, 232, 0.94);
+  background-color: aliceblue;
+  border: 1px solid rgba(64, 64, 232, 0.94);
 }
 
 /* Bordas coloridas nas divs */
 .div1-search-update {
-    border-left: 4px solid #E63946;
+  border-left: 4px solid #e63946;
 }
 
 .div2-search-update {
-    border-left: 4px solid #457B9D;
+  border-left: 4px solid #457b9d;
 }
 
 .div3-search-update {
-    border-left: 4px solid #F4A261;
+  border-left: 4px solid #f4a261;
 }
 
-#span-message{
-    color: red;
+#span-message {
+  color: red;
 }
 
-#rendered-message{
-    margin-left: 20px;
-    margin-bottom: 0;
+#rendered-message {
+  margin-left: 20px;
+  margin-bottom: 0;
 }
 
 /* Estilos para os inputs */
 #reagentForm-search-update .form-group-search-update input,
 #reagentForm-search-update .form-group-search-update textarea {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 70%; /* Ajuste para largura total */
-    height: 0.8em;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 70%; /* Ajuste para largura total */
+  height: 0.8em;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 /* Ajuste para o textarea */
 #reagentForm-search-update .form-group-search-update textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 /* Responsividade para telas pequenas */
 @media (max-width: 768px) {
-    .div1-search-update, .div2-search-update, .div3-search-update {
-        width: 100%;
-        margin-bottom: 1em;
-    }
+  .div1-search-update,
+  .div2-search-update,
+  .div3-search-update {
+    width: 100%;
+    margin-bottom: 1em;
+  }
 }
-
-

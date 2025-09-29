@@ -1,5 +1,5 @@
 body {
-  font-family: "Roboto", Arial;
+  font-family: 'Roboto', Arial;
 }
 
 nav {
@@ -15,7 +15,7 @@ a {
   text-decoration: none;
   font-size: 1.1em;
   font-weight: 600;
-  font-family: "Work Sans", Arial;
+  font-family: 'Work Sans', Arial;
   color: rgba(64, 64, 232, 0.94);
 }
 
@@ -44,7 +44,7 @@ li {
 
 #user {
   color: rgb(237, 171, 171);
-  font-family: "Work Sans", Arial;
+  font-family: 'Work Sans', Arial;
 }
 
 @media (max-width: 388px) {

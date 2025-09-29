@@ -7,4 +7,3 @@ authRouterState.post('/login', login);
 authRouterState.post('/sign-up', signUp);
 
 export default authRouterState;
-

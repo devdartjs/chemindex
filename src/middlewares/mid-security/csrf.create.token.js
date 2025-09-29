@@ -1,9 +1,10 @@
-
 import csrf from 'csurf';
 
-const csrfProtection = csrf({ cookie: {
+const csrfProtection = csrf({
+  cookie: {
     httpOnly: true,
-    secure: false
-} });
+    secure: false,
+  },
+});
 
 export default csrfProtection;

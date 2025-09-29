@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: API DOCUMENTATION
-  version: "1.0.0"
+  version: '1.0.0'
   description: This API handles user management, reagent tracking, and administrative operations for the Chemindex system.
 
 servers:
@@ -29,57 +29,57 @@ tags:
 paths:
   # UsersRoutes
   /:
-    $ref: "./paths/UsersRoutes.yaml#/home"
+    $ref: './paths/UsersRoutes.yaml#/home'
   /login:
-    $ref: "./paths/UsersRoutes.yaml#/login"
+    $ref: './paths/UsersRoutes.yaml#/login'
   /sign-up:
-    $ref: "./paths/UsersRoutes.yaml#/sign-up"
+    $ref: './paths/UsersRoutes.yaml#/sign-up'
   /dashboard-reagents:
-    $ref: "./paths/UsersRoutes.yaml#/dashboard-reagents"
+    $ref: './paths/UsersRoutes.yaml#/dashboard-reagents'
   /user-system:
-    $ref: "./paths/UsersRoutes.yaml#/user-system"
+    $ref: './paths/UsersRoutes.yaml#/user-system'
   /user-register-session:
-    $ref: "./paths/UsersRoutes.yaml#/user-register-session"
+    $ref: './paths/UsersRoutes.yaml#/user-register-session'
   /user-update-session:
-    $ref: "./paths/UsersRoutes.yaml#/user-update-session"
+    $ref: './paths/UsersRoutes.yaml#/user-update-session'
 
   # UsersAuthRoutes
   /api/v1/users/auth/login:
-    $ref: "./paths/UsersAuthRoutes.yaml#/login"
+    $ref: './paths/UsersAuthRoutes.yaml#/login'
   /api/v1/users/auth/sign-up:
-    $ref: "./paths/UsersAuthRoutes.yaml#/sign-up"
+    $ref: './paths/UsersAuthRoutes.yaml#/sign-up'
 
   # ReagentsRoutes
   /api/v1/reagents/{userId}:
-    $ref: "./paths/ReagentsRoutes.yaml#/userId"
+    $ref: './paths/ReagentsRoutes.yaml#/userId'
   /api/v1/reagents/{userId}/{casNumber}:
-    $ref: "./paths/ReagentsRoutes.yaml#/casNumber"
+    $ref: './paths/ReagentsRoutes.yaml#/casNumber'
 
   # ReagentsStateRoutes
   /api/v1/reagents/auth/{userId}:
-    $ref: "./paths/ReagentsStateRoutes.yaml#/userId"
+    $ref: './paths/ReagentsStateRoutes.yaml#/userId'
   /api/v1/reagents/auth/{userId}/{casNumber}:
-    $ref: "./paths/ReagentsStateRoutes.yaml#/casNumber"
+    $ref: './paths/ReagentsStateRoutes.yaml#/casNumber'
 
   # AdminRoutes
   /api/v1/admin:
-    $ref: "./paths/AdminRoutes.yaml#/admin"
+    $ref: './paths/AdminRoutes.yaml#/admin'
   /api/v1/admin/login:
-    $ref: "./paths/AdminRoutes.yaml#/login"
+    $ref: './paths/AdminRoutes.yaml#/login'
 
   # ReagentsAdminRoutes
   /api/v1/admin/reagents:
-    $ref: "./paths/ReagentsAdminRoutes.yaml#/reagents"
+    $ref: './paths/ReagentsAdminRoutes.yaml#/reagents'
   /api/v1/admin/reagents/{userId}:
-    $ref: "./paths/ReagentsAdminRoutes.yaml#/userId"
+    $ref: './paths/ReagentsAdminRoutes.yaml#/userId'
   /api/v1/admin/reagents/{userId}/{casNumber}:
-    $ref: "./paths/ReagentsAdminRoutes.yaml#/casNumber"
+    $ref: './paths/ReagentsAdminRoutes.yaml#/casNumber'
 
   #ReagentsUserRoutes
   /api/v1/admin/users:
-    $ref: "./paths/UserAdminRoutes.yaml#/users"
+    $ref: './paths/UserAdminRoutes.yaml#/users'
   /api/v1/admin/users/{userId}:
-    $ref: "./paths/UserAdminRoutes.yaml#/userId"
+    $ref: './paths/UserAdminRoutes.yaml#/userId'
 
 components:
-  $ref: "./components/security.yaml"
+  $ref: './components/security.yaml'

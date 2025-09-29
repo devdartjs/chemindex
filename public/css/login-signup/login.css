@@ -1,68 +1,66 @@
 .login-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 5% auto;
-    padding: 2em;
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-align: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 5% auto;
+  padding: 2em;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
 }
 
 .login-container h1 {
-    font-family: "Roboto", Arial;
-    font-size: 2em;
-    margin-bottom: 1em;
+  font-family: 'Roboto', Arial;
+  font-size: 2em;
+  margin-bottom: 1em;
 }
 
 .login-container label {
-    font-family: "Work sans", Arial;
-    font-size: 1.1em;
-    display: block;
-    margin-top: 1em;
-    text-align: left;
+  font-family: 'Work sans', Arial;
+  font-size: 1.1em;
+  display: block;
+  margin-top: 1em;
+  text-align: left;
 }
 
 .login-container input {
-    width: 100%;
-    padding: 0.8em;
-    margin-top: 0.3em;
-    border: 1px solid gray;
-    border-radius: 5px;
+  width: 100%;
+  padding: 0.8em;
+  margin-top: 0.3em;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .login-container button {
-    font-size: 1.2em;
-    background-color: rgba(64, 64, 232, 0.94);
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-top: 1.5em;
-    cursor: pointer;
-    width: 100%;
+  font-size: 1.2em;
+  background-color: rgba(64, 64, 232, 0.94);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1.5em;
+  cursor: pointer;
+  width: 100%;
 }
 
 .login-container button:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 #login-button-register:active {
-
-    background-color: white;
-    color: rgba(64, 64, 232, 0.94);
-    border: 1px solid rgba(64, 64, 232, 0.94);
+  background-color: white;
+  color: rgba(64, 64, 232, 0.94);
+  border: 1px solid rgba(64, 64, 232, 0.94);
 }
 
-#login-button-register{
-    font-size: 1.2em;
-    background-color: rgba(64, 64, 232, 0.94);
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-top: 1.5em;
-    cursor: pointer;
-    width: 106%;
+#login-button-register {
+  font-size: 1.2em;
+  background-color: rgba(64, 64, 232, 0.94);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1.5em;
+  cursor: pointer;
+  width: 106%;
 }
-
