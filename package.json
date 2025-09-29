@@ -12,7 +12,8 @@
     "p:write": "npx prettier --write .",
     "p:check": "npx prettier --check .",
     "create-admin": "node admin/sign-up-admin.js",
-    "docs": "swagger-cli bundle -o swagger.json"
+    "docs": "swagger-cli bundle -o swagger.json",
+    "build": "rm -rf build && mkdir build && npx babel src --out-dir build --copy-files --verbose && find build -type f -name '*.js' -exec npx terser {} --output {} --compress --mangle --source-map \\;"
   },
   "keywords": [
     "node",
@@ -44,6 +45,9 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.28.3",
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
     "clean-css": "^5.3.3",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",

@@ -1,0 +1,1 @@
+{"version":3,"names":["mongoose","DB_URI","connectToMongoDB","async","console","log","connect","err","error","message"],"sources":["build/database/mongodb.js"],"mappings":"OAAOA,aAAc,kBACZC,WAAc,0BACvB,MAAMC,iBAAmBC,UACvB,IACEC,QAAQC,IAAIJ,cACND,SAASM,QAAQL,QACvBG,QAAQC,IAAI,+BACd,CAAE,MAAOE,GACPH,QAAQI,MAAM,iCAAkCD,EAAIE,SACpDL,QAAQI,MAAM,SAAUD,EAC1B,kBAEaL","ignoreList":[]}

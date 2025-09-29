@@ -1,0 +1,56 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_URI=mongodb://mongo:27017/mongodb
+    depends_on:
+      - mongo
+    networks:
+      - chemindex-network
+    profiles:
+      - dev
+
+  mongo:
+    image: mongo:7.0
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_DATABASE=mongodb
+    networks:
+      - chemindex-network
+    healthcheck:
+      test: ['CMD', 'mongosh', '--eval', "db.runCommand('ping').ok", '--quiet']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    profiles:
+      - dev
+      - stage
+
+  app-stage:
+    build:
+      context: .
+      dockerfile: Dockerfile.stage
+    ports:
+      - '7000:7000'
+    environment:
+      - NODE_ENV=production
+      - PORT=7000
+      - DB_URI=mongodb://mongo:27017/mongodb
+    depends_on:
+      - mongo
+    networks:
+      - chemindex-network
+    profiles:
+      - stage
+
+networks:
+  chemindex-network:
+    driver: bridge

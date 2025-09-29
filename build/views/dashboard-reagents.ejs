@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <main class="dashboard">
+      <section class="dashboard-info">
+        <br>        
+        <h2>Dashboard</h2>
+        <p>Manage your reagents easily</p>  
+        <br>
+        <p>Logged in as user:</p>      
+        <div class="dashboard-user-info">
+          
+        <img
+          src='/images/user.svg'
+          alt="User Icon"
+          class="dashboard-avatar"
+        />
+        
+        <p>Welcome, <strong><%= user.email %></strong>!</p>
+        </div>
+        <br>
+        <hr />
+
+        <p>
+          <br>
+          <a href="/">Reagents quantity: </a>         
+          <span id="dashboard-reagents-quantity"></span>
+          <br>
+          <br>
+          <hr />
+        </p>
+        <a><p>Actions:</p></a>
+        <br>
+        <a href="/user-system"><p>Access system</p></a>
+        
+        <a href="/user-register-session"><p>Add reagents</p></a>
+        <a href="/user-update-session"><p>Update reagents</p></a>
+        <a href="/swagger"><p>Documentation</p></a>
+        <br>
+        <br>
+        <hr />
+      </section>
+
+      <section class="dashboard-container">
+        <h1 class="dashboard-title">Reagents</h1>
+        <div id="dashboard-reagents-list" class="dashboard-reagents-list">
+          Loading...
+        </div>
+        <div id="pagination-controls" class="pagination-controls"></div>
+      </section>
+    </main>
+
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>
+
+<script nonce="<%= nonce %>">
+  document.addEventListener("DOMContentLoaded", () => {
+    const listContainer = document.getElementById("dashboard-reagents-list");
+    const reagentsQuantity = document.getElementById(
+      "dashboard-reagents-quantity"
+    );
+    const paginationContainer = document.getElementById("pagination-controls");
+    const userId = "<%= user._id %>";
+
+    if (!userId) {
+      listContainer.innerHTML = "<p>User not found.</p>";
+      return;
+    }
+
+    let currentPage = 1;
+    const limit = 6;
+
+    async function loadReagents(page = 1) {
+      try {
+        const response = await fetch(
+          `/api/v1/reagents/${userId}?page=${page}&limit=${limit}`
+        );
+        const data = await response.json();
+
+        if (!response.ok) {
+          listContainer.innerHTML = `<p>${data.message}</p>`;
+          paginationContainer.innerHTML = "";
+          return;
+        }
+
+        listContainer.innerHTML = "";
+
+        data.reagents.forEach((reagent) => {
+          const card = document.createElement("div");
+          card.className = "reagent-card";
+
+          const casNumber = reagent.casNumber || "N/A";
+          const reagentName = reagent.reagentName || "Unnamed";
+          const local = reagent.local || "Unknown";
+
+          const info = document.createElement("div");
+          info.className = "dashboard-reagent-info";
+          info.innerHTML = `
+            <p>
+              <strong class="dashboard-strong">CAS:</strong> ${casNumber}
+              | <strong class="dashboard-strong">Name:</strong> ${reagentName}
+              | <strong class="dashboard-strong">Location:</strong> ${local}
+            </p>
+          `;
+
+          const actions = document.createElement("div");
+          actions.className = "dashboard-reagent-actions";
+
+          const editBtn = document.createElement("button");
+          editBtn.className = "button-component";
+          editBtn.textContent = "✏️";
+          editBtn.addEventListener("click", () => {
+            window.location.href = "/user-update-session";
+          });
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.className = "button-component";
+          deleteBtn.textContent = "🗑️";
+          deleteBtn.addEventListener("click", () => {
+            handleDeleteReagent(userId, casNumber);
+          });
+
+          actions.appendChild(editBtn);
+          actions.appendChild(deleteBtn);
+
+          const cardContent = document.createElement("div");
+          cardContent.className = "dashboard-reagent-card-content";
+          cardContent.appendChild(info);
+          cardContent.appendChild(actions);
+
+          card.appendChild(cardContent);
+          listContainer.appendChild(card);
+        });
+
+        reagentsQuantity.innerHTML = `<strong class="quantity">${data.totalReagents}</strong>`;
+        renderPaginationControls(data.totalPages, data.currentPage);
+      } catch (err) {
+        listContainer.innerHTML = `<p>Error loading reagents.</p>`;
+        paginationContainer.innerHTML = "";
+        console.error("Error fetching reagents:", err);
+      }
+    }
+
+    function renderPaginationControls(totalPages, currentPage) {
+      paginationContainer.innerHTML = "";
+
+      if (totalPages <= 1) return;
+
+      if (currentPage > 1) {
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "Previous";
+        prevBtn.className = "button-component";
+        prevBtn.addEventListener("click", () => loadReagents(currentPage - 1));
+        paginationContainer.appendChild(prevBtn);
+      }
+
+      const pageInfo = document.createElement("span");
+      pageInfo.textContent = ` Page ${currentPage} of ${totalPages}`;
+      pageInfo.className = "pagination-info";
+      paginationContainer.appendChild(pageInfo);
+
+      if (currentPage < totalPages) {
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "Next";
+        nextBtn.className = "button-component";
+        nextBtn.addEventListener("click", () => loadReagents(currentPage + 1));
+        paginationContainer.appendChild(nextBtn);
+      }
+    }
+
+    async function handleDeleteReagent(userId, casNumber) {
+      if (!confirm("Are you sure you want to delete this reagent?")) return;
+
+      try {
+        const response = await fetch(
+          `/api/v1/reagents/auth/${userId}/${casNumber}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert(data.message || "Error deleting reagent.");
+          return;
+        }
+
+        alert("Reagent deleted successfully.");
+        loadReagents(currentPage);
+      } catch (error) {
+        alert("Error deleting reagent.");
+        console.error("Error deleting reagent:", error);
+      }
+    }
+
+    // Initialize page
+    loadReagents(currentPage);
+  });
+</script>

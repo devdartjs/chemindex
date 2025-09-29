@@ -1,0 +1,1 @@
+import mongoose from"mongoose";import{DB_URI}from"../config/config.env.js";const connectToMongoDB=async()=>{try{console.log(DB_URI),await mongoose.connect(DB_URI),console.log("✅ Connected to the database!")}catch(o){console.error("❌ Error to connect to MongoDB:",o.message),console.error("Error:",o)}};export default connectToMongoDB;
