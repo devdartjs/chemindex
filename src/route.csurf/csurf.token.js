@@ -1,6 +1,6 @@
 import { Router } from "express";
-import csrfProtection from "../mid-security/csrf.create.token.js";
-import csrfErrorHandler from "../mid-security/csrf.error.handler.js";
+import csrfProtection from "../middlewares/mid-security/csrf.create.token.js";
+import csrfErrorHandler from "../middlewares/mid-security/csrf.error.handler.js";
 
 const csrfRouter = Router();
 

@@ -1,5 +1,5 @@
-import { PORT, NODE_ENV } from "../config/config.env.js";
-import generateNonce from "../utils/create-nonce.js";
+import { PORT, NODE_ENV } from "../../config/config.env.js";
+import generateNonce from "../../utils/create-nonce.js";
 
 const cspMiddlewareDev = (req, res, next) => {
   const nonce = generateNonce();

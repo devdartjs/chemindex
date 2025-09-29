@@ -1,6 +1,6 @@
 import express from "express";
 import helmet from "helmet";
-import setupSwagger from "./swagger.js";
+import setupSwagger from "../swagger.js";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import mongoose from "mongoose";
@@ -17,18 +17,18 @@ import csrfRouter from "./route.csurf/csurf.token.js";
 import adminRouter from "./routes/admin/admin.routes.js";
 import adminUsersRouter from "./routes/admin/users.admin.routes.js";
 import adminReagentsRouter from "./routes/admin/reagents.admin.routes.js";
-import { userSchemaAccessValidator } from "./mid-clean-inputs/validate/users.validate.js";
-import { reagentSchemaCreateValidator } from "./mid-clean-inputs/validate/reagents.validate.js";
-import validate from "./mid-clean-inputs/validate/schemas.validate.js";
-import { sanitizeUsersInput } from "./mid-clean-inputs/sanitize/user.sanitize.js";
-import { escapeUserInput } from "./mid-clean-inputs/escape/user.escape.js";
-import cspMiddleware from "./mid-security/csp.middlewares.js";
-import setCORP from "./mid-security/corp.middleware.js";
+import { userSchemaAccessValidator } from "./middlewares/mid-clean-inputs/validate/users.validate.js";
+import { reagentSchemaCreateValidator } from "./middlewares/mid-clean-inputs/validate/reagents.validate.js";
+import validate from "./middlewares/mid-clean-inputs/validate/schemas.validate.js";
+import { sanitizeUsersInput } from "./middlewares/mid-clean-inputs/sanitize/user.sanitize.js";
+import { escapeUserInput } from "./middlewares/mid-clean-inputs/escape/user.escape.js";
+import cspMiddleware from "./middlewares/mid-security/csp.middlewares.js";
+import setCORP from "./middlewares/mid-security/corp.middleware.js";
 import {
   checkUser,
   authentication,
-} from "./mid-security/users.authentication.js";
-import { checkAdmin } from "./mid-admin/permission.admin.js";
+} from "./middlewares/mid-security/users.authentication.js";
+import { checkAdmin } from "./middlewares/mid-admin/permission.admin.js";
 // import arcjetMiddleware from "./mid-security/arcjet.middleware.js";//
 
 const app = express();

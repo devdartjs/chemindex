@@ -2,15 +2,12 @@
   "name": "indexchem",
   "private": true,
   "version": "1.0.0",
-  "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "test": "jest",
     "lint": "eslint .",
-    "start": "node app",
-    "create-admin": "node admin/sign-up-admin.js",
-    "build": "node build.js"
+    "dev": "node src/app.js",
+    "create-admin": "node admin/sign-up-admin.js"
   },
   "keywords": [],
   "author": "",

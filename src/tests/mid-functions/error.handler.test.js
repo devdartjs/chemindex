@@ -1,4 +1,4 @@
-import { handleErrors } from "../../mid-functions/error.handler";
+import { handleErrors } from "../../middlewares/mid-functions/error.handler";
 
 describe("handleErrors function testing", () => {
   test("returns email error message when email is incorrect", () => {

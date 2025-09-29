@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
-import { handleErrors } from "../mid-functions/error.handler.js";
-import createToken from "../mid-functions/creat.token.js";
+import { handleErrors } from "../middlewares/mid-functions/error.handler.js";
+import createToken from "../middlewares/mid-functions/creat.token.js";
 
 export const signUp = async (req, res) => {
   const { email, password } = req.body;

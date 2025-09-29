@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authentication } from "../mid-security/users.authentication.js";
+import { authentication } from "../middlewares/mid-security/users.authentication.js";
 import {
   getIndexPage,
   getLoginPage,

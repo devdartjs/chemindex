@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user.model.js";
-import { JWT_SECRET } from "../config/config.env.js";
+import User from "../../models/user.model.js";
+import { JWT_SECRET } from "../../config/config.env.js";
 
 export const authentication = (req, res, next) => {
   const token = req.cookies.jwt;

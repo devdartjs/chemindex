@@ -1,4 +1,4 @@
-# 🟢 Chemindex API
+# ⚪ Chemindex API
 
 A scalable and secure RESTful API for managing chemical reagents and user access, built with **Node.js**, **Express**, and **MongoDB Atlas**, and fully documented with **OpenAPI 3.0 (Swagger)**.  
 Designed for laboratory inventory management with modular architecture and role-based permissions.
