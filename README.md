@@ -28,6 +28,10 @@ A free API-driven system for managing chemical reagents and user access, designe
 
 ---
 
+## ⚪ Note on Legacy Frontend Files
+
+The remote repository includes `views`, `HTML`, and `CSS` files, which are no longer actively used in the backend. These files represent the initial frontend implementation and are retained for historical reference, showcasing the project's early development. The modern frontend is being developed separately using **React** and **Vite** and will be hosted on a distinct domain.
+
 ## ⚪ Technologies Used
 
 - **Node.js** + **Express.js** for backend.
