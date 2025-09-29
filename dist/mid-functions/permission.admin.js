@@ -1,1 +1,0 @@
-export const isAdmin=(s,e,t)=>{try{if(!e.locals.user&&"admin"!==e.locals.user.status)return e.status(403).json({message:"Access denied: Admins only"});t()}catch(s){return e.status(500).json({error:s.message})}};
