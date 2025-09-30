@@ -23,7 +23,7 @@ import cspMiddleware from "./middlewares/mid-security/csp-middlewares.js";
 import { checkUser } from "./middlewares/mid-security/users-authentication/checkUser.js";
 import { authentication } from "./middlewares/mid-security/users-authentication/authentication.js";
 import { checkAdmin } from "./middlewares/mid-admin/permission-admin.js";
-import setCORP from "./middlewares/mid-security/corp.middleware.js";
+import setCORP from "./middlewares/mid-security/corp-middleware.js";
 
 const app = express();
 connectToMongoDB();

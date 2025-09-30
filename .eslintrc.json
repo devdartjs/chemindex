@@ -14,7 +14,7 @@
     "indent": ["error", 2],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
-    "no-console": "warn",
+    "no-console": "off",
     "eqeqeq": ["error", "always"],
     "node/no-unsupported-features/es-syntax": "off",
     "node/no-missing-import": "off"
