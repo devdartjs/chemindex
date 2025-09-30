@@ -1,1 +1,0 @@
-{"version":3,"names":["csrfErrorHandler","err","req","res","next","code","console","error","status","json"],"sources":["build/middlewares/mid-security/csrf.error.handler.js"],"mappings":"AAAA,MAAMA,iBAAmB,CAACC,EAAKC,EAAKC,EAAKC,KACvC,GAAiB,kBAAbH,EAAII,KAA0B,OAAOD,EAAKH,GAC9CK,QAAQC,MAAM,oBAAqBN,GACnCE,EAAIK,OAAO,KAAKC,KAAK,CACnBF,MAAO,sDAGIP","ignoreList":[]}

@@ -1,1 +1,0 @@
-{"version":3,"names":["Router","login","signUp","authRouterState","post"],"sources":["build/routes/users.auth.routes.js"],"mappings":"OAASA,WAAc,iBACdC,MAAOC,WAAc,0CAC9B,MAAMC,gBAAkBH,SACxBG,gBAAgBC,KAAK,SAAUH,OAC/BE,gBAAgBC,KAAK,WAAYF,uBAClBC","ignoreList":[]}

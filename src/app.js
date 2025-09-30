@@ -4,63 +4,42 @@ import setupSwagger from '../swagger.js';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
-import ejs from 'ejs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { PORT, NODE_ENV } from './config/config.env.js';
+import { PORT, NODE_ENV } from './config/config-env.js';
 import connectToMongoDB from './database/mongodb.js';
-import authRouterState from './routes/users.auth.routes.js';
-import usersRouter from './routes/users.routes.js';
-import reagentsRouter from './routes/reagents.routes.js';
-import reagentsStateRouter from './routes/reagents.state.routes.js';
-import csrfRouter from './route.csurf/csurf.token.js';
-import adminRouter from './routes/admin/admin.routes.js';
-import adminUsersRouter from './routes/admin/users.admin.routes.js';
-import adminReagentsRouter from './routes/admin/reagents.admin.routes.js';
-import { userSchemaAccessValidator } from './middlewares/mid-clean-inputs/validate/users.validate.js';
-import { reagentSchemaCreateValidator } from './middlewares/mid-clean-inputs/validate/reagents.validate.js';
-import validate from './middlewares/mid-clean-inputs/validate/schemas.validate.js';
-import { sanitizeUsersInput } from './middlewares/mid-clean-inputs/sanitize/user.sanitize.js';
-import { escapeUserInput } from './middlewares/mid-clean-inputs/escape/user.escape.js';
-import cspMiddleware from './middlewares/mid-security/csp.middlewares.js';
-import setCORP from './middlewares/mid-security/corp.middleware.js';
-import {
-  checkUser,
-  authentication,
-} from './middlewares/mid-security/users.authentication.js';
-import { checkAdmin } from './middlewares/mid-admin/permission.admin.js';
+import authRouterState from './routes/users-auth-routes.js';
+import usersRouter from './routes/users-routes.js';
+import reagentsRouter from './routes/reagents-routes.js';
+import reagentsStateRouter from './routes/reagents-state-routes.js';
+import csrfRouter from './route-csurf/csurf-token.js';
+import adminRouter from './routes/admin/admin-routes.js';
+import adminUsersRouter from './routes/admin/users-admin-routes.js';
+import adminReagentsRouter from './routes/admin/reagents-admin-routes.js';
+import { userSchemaAccessValidator } from './middlewares/mid-clean-inputs/validate/users-validate.js';
+import { reagentSchemaCreateValidator } from './middlewares/mid-clean-inputs/validate/reagents-validate.js';
+import validate from './middlewares/mid-clean-inputs/validate/schemas-validate.js';
+import { sanitizeUsersInput } from './middlewares/mid-clean-inputs/sanitize/user-sanitize.js';
+import { escapeUserInput } from './middlewares/mid-clean-inputs/escape/user-escape.js';
+import cspMiddleware from './middlewares/mid-security/csp-middlewares.js';
+import { checkUser } from './middlewares/mid-security/users-authentication/checkUser.js';
+import { authentication } from './middlewares/mid-security/users-authentication/authentication.js';
+import { checkAdmin } from './middlewares/mid-admin/permission-admin.js';
+// import setCORP from './middlewares/mid-security/corp.middleware.js';
 // import arcjetMiddleware from "./mid-security/arcjet.middleware.js";//
 
 const app = express();
 connectToMongoDB();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const viewPath = path.resolve(__dirname, 'views');
-const publicPath = path.resolve(__dirname, 'public');
-
-const staticPath =
-  NODE_ENV === 'production'
-    ? path.resolve(__dirname, 'dist', 'public')
-    : path.resolve(__dirname, 'public');
-
-app.use(express.static(staticPath));
-
-app.set('view engine', 'ejs');
-app.set('views', viewPath);
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(publicPath));
 app.use(cookieParser());
 mongoose.set('sanitizeFilter', true);
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cspMiddleware);
-app.use(setCORP);
-// app.use(arcjetMiddleware);
-
 setupSwagger(app);
+
+// app.use(setCORP);
+// app.use(arcjetMiddleware);
 
 const userValidation = validate({ body: userSchemaAccessValidator });
 const reagentValidation = validate({ body: reagentSchemaCreateValidator });
@@ -101,11 +80,6 @@ app.use('/api/v1/token', csrfRouter);
 app.use('/logout', (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
   res.redirect('/');
-});
-
-app.get('/test', (req, res) => {
-  console.log('Test route hit');
-  res.status(200).json({ message: 'Test route is working' });
 });
 
 app.use((req, res) => {

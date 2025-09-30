@@ -1,1 +1,0 @@
-const setCORP=(e,s,o)=>{s.setHeader("Cross-Origin-Resource-Policy","same-origin"),o()};export default setCORP;
