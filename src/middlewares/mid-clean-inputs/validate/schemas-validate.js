@@ -1,7 +1,7 @@
 export function validate(schemas = {}) {
   return (req, res, next) => {
-    console.log('validating user schema running!');
-    const partsToCheck = ['body', 'params', 'query'];
+    console.log("validating user schema running!");
+    const partsToCheck = ["body", "params", "query"];
 
     for (const part of partsToCheck) {
       const schema = schemas[part];
@@ -21,11 +21,11 @@ export function validate(schemas = {}) {
         }
 
         req[part] = value; // re-write clean data
-        console.log('value:', value);
+        console.log("value:", value);
       }
     }
 
-    console.log('validating user schema: ok!');
+    console.log("validating user schema: ok!");
     next();
   };
 }

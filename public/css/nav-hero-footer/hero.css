@@ -10,14 +10,14 @@ main {
 }
 
 .title-hero {
-  font-family: 'Roboto', Arial;
+  font-family: "Roboto", Arial;
   font-size: 4.5em;
   margin-bottom: 0%;
   font-weight: 600;
 }
 
 .text-hero {
-  font-family: 'Work sans', arial;
+  font-family: "Work sans", arial;
   font-style: italic;
   color: gray;
   font-size: 3em;
@@ -28,12 +28,12 @@ main {
 .text {
   font-size: 1.3em;
   color: darkslategray;
-  font-family: 'Work sans', arial;
+  font-family: "Work sans", arial;
   margin-bottom: 50px;
 }
 
 .button-hero {
-  font-family: 'Work sans', Arial;
+  font-family: "Work sans", Arial;
   font-size: 1.4em;
   border: 1px, solid, blue;
   background-color: rgba(64, 64, 232, 0.94);

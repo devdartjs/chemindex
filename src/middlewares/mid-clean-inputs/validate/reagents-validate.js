@@ -1,12 +1,12 @@
-import Joi from 'joi';
-import mongoose from 'mongoose';
+import Joi from "joi";
+import mongoose from "mongoose";
 
 const objectIdValidator = Joi.string().custom((value, helpers) => {
   if (!mongoose.Types.ObjectId.isValid(value)) {
-    return helpers.error('any.invalid');
+    return helpers.error("any.invalid");
   }
   return value;
-}, 'ObjectId Validation');
+}, "ObjectId Validation");
 
 export const reagentSchemaCreateValidator = Joi.object({
   casNumber: Joi.string().trim().required(),
@@ -17,8 +17,8 @@ export const reagentSchemaCreateValidator = Joi.object({
   composition: Joi.array()
     .items(
       Joi.object({
-        substance: Joi.string().trim().allow('', null),
-        concentration: Joi.string().trim().allow('', null),
+        substance: Joi.string().trim().allow("", null),
+        concentration: Joi.string().trim().allow("", null),
       })
     )
     .optional(),
@@ -32,7 +32,7 @@ export const reagentSchemaCreateValidator = Joi.object({
   weight: Joi.string().trim().required(),
   molecularFormula: Joi.string().trim().required(),
   molecularWeight_g_per_mol: Joi.string().trim().required(),
-  furtherInformations: Joi.string().trim().allow('').optional(),
+  furtherInformations: Joi.string().trim().allow("").optional(),
   createdBy: objectIdValidator.optional(),
 });
 

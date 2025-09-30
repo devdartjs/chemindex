@@ -10,13 +10,13 @@
 }
 
 .login-container h1 {
-  font-family: 'Roboto', Arial;
+  font-family: "Roboto", Arial;
   font-size: 2em;
   margin-bottom: 1em;
 }
 
 .login-container label {
-  font-family: 'Work sans', Arial;
+  font-family: "Work sans", Arial;
   font-size: 1.1em;
   display: block;
   margin-top: 1em;

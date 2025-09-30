@@ -17,7 +17,7 @@ users:
                 properties:
                   id:
                     type: string
-                    example: 'abc123'
+                    example: "abc123"
                   name:
                     type: string
                     example: John Doe

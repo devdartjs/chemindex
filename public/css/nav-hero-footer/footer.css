@@ -1,11 +1,11 @@
 footer {
-  font-family: 'Work sans', arial;
+  font-family: "Work sans", arial;
   display: flex;
   justify-content: center;
 }
 
 .p-footer {
-  font-family: 'Work sans', Arial;
+  font-family: "Work sans", Arial;
   font-size: 1.3em;
   color: gray;
 }

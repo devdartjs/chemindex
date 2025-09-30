@@ -1,6 +1,6 @@
 /* Estilo para o título */
 #h1-register {
-  font-family: 'Manrope', Arial, sans-serif;
+  font-family: "Manrope", Arial, sans-serif;
   font-size: 2.5em;
   text-align: center;
   color: rgba(64, 64, 232, 0.94);
@@ -25,7 +25,7 @@
 .div2-register,
 .div3-register {
   width: 30%;
-  font-family: 'Work Sans', Arial, sans-serif;
+  font-family: "Work Sans", Arial, sans-serif;
   font-size: 18px;
   padding: 1em;
   background-color: #2a2a3f;

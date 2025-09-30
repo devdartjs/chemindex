@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '3000:3000'
+      - "3000:3000"
     environment:
       - NODE_ENV=development
       - PORT=3000
@@ -19,13 +19,13 @@ services:
   mongo:
     image: mongo:7.0
     ports:
-      - '27017:27017'
+      - "27017:27017"
     environment:
       - MONGO_INITDB_DATABASE=mongodb
     networks:
       - chemindex-network
     healthcheck:
-      test: ['CMD', 'mongosh', '--eval', "db.runCommand('ping').ok", '--quiet']
+      test: ["CMD", "mongosh", "--eval", "db.runCommand('ping').ok", "--quiet"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -39,7 +39,7 @@ services:
       context: .
       dockerfile: Dockerfile.stage
     ports:
-      - '7000:7000'
+      - "7000:7000"
     environment:
       - NODE_ENV=production
       - PORT=7000

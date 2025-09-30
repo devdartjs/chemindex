@@ -1,29 +1,47 @@
-import User from '../../models/user-model.js';
-import { handleErrors } from '../../middlewares/mid-functions/error-handler.js';
-import createToken from '../../middlewares/mid-functions/creat-token.js';
+import User from "../../models/user-model.js";
+import { handleErrors } from "../../middlewares/mid-functions/error-handler.js";
+import createToken from "../../middlewares/mid-functions/creat-token.js";
 
 export const signUp = async (req, res) => {
-  const { email, password } = req.body;
-
   try {
-    const user = await User.create({ email, password });
+    const { email, password } = req.body;
 
-    const token = createToken(user._id);
-    res.cookie('jwt', token, {
-      httpOnly: true,
-      maxAge: 1 * 1000 * 60 * 60 * 24,
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+
+    const sanitizedEmail = String(email).trim().toLowerCase();
+    const sanitizedPassword = String(password).trim();
+
+    if (sanitizedPassword.length < 6) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 6 characters long" });
+    }
+
+    const user = await User.create({
+      email: sanitizedEmail,
+      password: sanitizedPassword,
     });
 
-    res.status(201).json({ user });
+    const token = createToken(user._id);
+
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(201).json({ user });
   } catch (err) {
     if (err.code === 11000) {
       return res
         .status(400)
-        .json({ errors: { email: 'That email is already used!' } });
+        .json({ errors: { email: "This email is already registered" } });
     }
 
     const errors = handleErrors(err);
-
-    res.status(400).json({ errors });
+    return res.status(400).json({ errors });
   }
 };

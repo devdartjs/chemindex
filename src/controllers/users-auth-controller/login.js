@@ -1,6 +1,6 @@
-import User from '../../models/user-model.js';
-import { handleErrors } from '../../middlewares/mid-functions/error-handler.js';
-import createToken from '../../middlewares/mid-functions/creat-token.js';
+import User from "../../models/user-model.js";
+import { handleErrors } from "../../middlewares/mid-functions/error-handler.js";
+import createToken from "../../middlewares/mid-functions/creat-token.js";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -11,7 +11,7 @@ export const login = async (req, res) => {
     if (user) {
       const token = createToken(user._id);
 
-      res.cookie('jwt', token, {
+      res.cookie("jwt", token, {
         httpOnly: true,
         maxAge: 1 * 1000 * 60 * 60 * 24,
       });
@@ -19,13 +19,13 @@ export const login = async (req, res) => {
       return res.status(200).json({ user, token, nonce: res.locals.nonce });
     }
 
-    throw new Error('incorrect password');
+    throw new Error("incorrect password");
   } catch (err) {
     const errors = handleErrors(err);
 
-    if (err.message === 'incorrect email') {
+    if (err.message === "incorrect email") {
       return res.status(400).json({ errors: { email: errors.email } });
-    } else if (err.message === 'incorrect password') {
+    } else if (err.message === "incorrect password") {
       return res.status(400).json({ errors: { password: errors.password } });
     }
   }

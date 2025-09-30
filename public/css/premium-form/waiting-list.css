@@ -18,7 +18,7 @@
 }
 
 .waiting-list-container h1 {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
   font-size: 2em;
   margin-bottom: 0.5em;
 }
@@ -33,7 +33,7 @@
 }
 
 .waiting-list-container label {
-  font-family: 'Work sans', Arial, sans-serif;
+  font-family: "Work sans", Arial, sans-serif;
   font-size: 1.1em;
   display: block;
   margin-top: 1em;
