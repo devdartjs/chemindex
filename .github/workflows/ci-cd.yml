@@ -2,153 +2,95 @@ name: CI/CD - Chemindex
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
-    name: Build & Unit Tests
+    name: Build & Lint
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
 
     steps:
-      # 1️⃣ Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # 2️⃣ Cache Node.js modules
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      # 3️⃣ Set up Node.js
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      # 4️⃣ Install dependencies
-      - name: Install dependencies
-        run: npm ci
-
-      # 5️⃣ Build the app
-      - name: Build app
-        run: npm run build
-
-      # 6️⃣ Check code format
-      - name: Check code format
-        run: npx prettier --check src/**/*.ts
-
-      # 7️⃣ Lint
-      - name: Run ESLint
-        run: npm run lint
+      - run: npm ci
+      - run: npm run build:gh
+      - run: npm run prettier:check
+      - run: npm run lint
 
   tests:
-    name: Run Unit and Integration Tests in Docker
+    name: Run Unit & Integration Tests in Docker
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: build
+    env:
+      NODE_ENV: production
+      PORT: 7000
+      DB_URI: mongodb://mongo:27017/mongodb
+      JWT_SECRET: secret
+      JWT_EXPIRES_IN: 1000
 
     steps:
-      # 1️⃣ Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # 2️⃣ Create .env from the secret
-      - name: Create .env
-        run: printf "%s\n" "${{ secrets.ENV }}" > .env
-
-      # 3️⃣ Start containers, wait for MongoDB, apply migrations
-      - name: Set up Stage Docker Compose
-        env:
-          DB_URI: mongodb://mongo:27017/mongodb
+      - name: Set up Docker Compose (stage profile)
         run: docker compose --profile stage up --build -d
 
-      - name: Wait for MongoDB
-        run: |
-          ATTEMPTS=0
-          MAX_ATTEMPTS=15
-          until docker compose exec -T mongodb mongosh --eval "db.runCommand({ ping: 1 })" > /dev/null 2>&1; do
-            echo "Waiting for MongoDB..."
-            sleep 2
-            ATTEMPTS=$((ATTEMPTS+1))
-            if [ $ATTEMPTS -ge $MAX_ATTEMPTS ]; then
-              echo "MongoDB did not become ready in time."
-              exit 1
-            fi
-          done
+      - name: List containers
+        run: docker ps
 
-      # 4️⃣ Apply migrations
-      - name: Apply migrations
-        run: |
-          docker compose exec -T app4 npm run migrate:deploy
+      - name: App logs
+        run: docker logs chemindex-app-stage-1
 
-      # 5️⃣ Run tests (coverage)
+      - name: Debug build folder
+        run: docker compose run --rm app sh -c "ls -R /build/routes/admin"
+
       - name: Run tests (unit & integration)
-        run: docker compose exec -T app4 npm run test:coverage
+        run: docker compose run --rm app npm run test
 
-      # 6️⃣ Copy coverage folder
-      - name: Copy coverage folder
-        run: docker cp $(docker compose ps -q app4):/usr/src/app/coverage ./coverage
-
-      # 7️⃣ Set up SonarQube scanner
-      - name: Set up SonarQube scanner
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          args: >
-            -Dsonar.organization=devdartjs
-            -Dsonar.projectKey=Chemindex-backend
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-
-      # 8️⃣ Tear down Docker containers
       - name: Tear down containers
         if: always()
         run: docker compose down --volumes --remove-orphans
 
-      # 9️⃣ Clean up the .env file
-      - name: Cleanup .env
-        run: rm -f .env
-
   build-and-push-image:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
-    needs: unit-and-integration-tests
+    needs: tests
     if: github.ref == 'refs/heads/main'
 
     steps:
-      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 3️⃣ Login to DockerHub
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 4️⃣ Create .env from the secret
-      - name: Create .env
+      - name: Create .env from the secret
         run: printf "%s\n" "${{ secrets.ENV }}" > .env
 
-      # 5️⃣ Extract version from package.json
       - name: Extract version from package.json
-        run: echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
+        run: |
+          VERSION=$(jq -r .version package.json)
+          if [ -z "$VERSION" ] || [ "$VERSION" = "null" ]; then
+            VERSION="latest"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      # 6️⃣ Build and Push Docker image
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -160,7 +102,6 @@ jobs:
             dartw/chemindex:latest
             dartw/chemindex:${{ env.VERSION }}
 
-      # 7️⃣ Clean up .env
       - name: Cleanup .env
         run: rm -f .env
 
@@ -171,28 +112,24 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Install Flyctl
       - name: Install Flyctl
         run: |
           curl -L https://fly.io/install.sh | sh
           echo "$HOME/.fly/bin" >> $GITHUB_PATH
 
-      # 3️⃣ Deploy to Fly.io (updates https://chemindex-app.fly.dev/)
       - name: Deploy to Fly.io
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-        run: flyctl deploy --image dartw/chemindex:${{ env.VERSION }} --app chemindex-app --remote-only
+        run: flyctl deploy --image dartw/chemindex:${{ env.VERSION || 'latest' }} --app chemindex-app --remote-only
 
-      # 4️⃣ Verify deployment
       - name: Verify deployment
         run: |
           ATTEMPTS=0
           MAX_ATTEMPTS=15
-          until curl -s -f https://chemindex-app.fly.dev/health > /dev/null 2>&1; do
+          until curl -s -f https://chemindex-app.fly.dev/ > /dev/null 2>&1; do
             echo "Waiting for app to be healthy..."
             sleep 2
             ATTEMPTS=$((ATTEMPTS+1))

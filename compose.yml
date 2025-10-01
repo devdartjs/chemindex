@@ -9,14 +9,14 @@ services:
       - NODE_ENV=development
       - PORT=3000
       - DB_URI=mongodb://mongo:27017/mongodb
+      - JWT_SECRET=secret
+      - JWT_EXPIRES_IN=1000
     depends_on:
       - mongo
     networks:
       - chemindex-network
     profiles:
       - dev
-    env_file:
-      - .env.development.local
 
   mongo:
     image: mongo:7.0
@@ -47,14 +47,21 @@ services:
       - NODE_ENV=production
       - PORT=7000
       - DB_URI=mongodb://mongo:27017/mongodb
+      - JWT_SECRET=secret
+      - JWT_EXPIRES_IN=1000
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     networks:
       - chemindex-network
     profiles:
       - stage
-    env_file:
-      - .env.production.local
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7000/ || exit 1"]
+      interval: 2s
+      retries: 15
+      start_period: 5s
+      timeout: 2s
 
 networks:
   chemindex-network:

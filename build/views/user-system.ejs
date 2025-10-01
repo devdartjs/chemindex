@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="service-container">
+      <div class="service">
+        <a href="/user-register-session"
+          ><img src="../images/file.svg" alt="file icon" class="icon"
+        /></a>
+        <a href="/user-register-session"><h3>Register your Products</h3></a>
+        <a href="/user-register-session"
+          ><p id="p-register" style="text-align: justify">
+            Fill the blanks with corresponding data reagents and register into
+            your database.
+          </p></a
+        >
+        <a href="/user-register-session"
+          ><button class="register-button">Register</button></a
+        >
+      </div>
+
+      <div class="service">
+        <a href="/user-update-session"
+          ><img src="../images/search-icon2.svg" alt="search icon" class="icon"
+        /></a>
+        <a href="/user-update-session"><h3>Search & Update</h3></a>
+        <a href="/user-update-session"
+          ><p id="p-search" style="text-align: justify">
+            Execute the abovementioned actions through the respective
+            CAS-Number, including the action delete.
+          </p></a
+        >
+        <a href="/user-update-session"
+          ><button class="update-button">Update</button></a
+        >
+      </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>

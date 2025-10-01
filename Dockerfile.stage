@@ -11,7 +11,7 @@ FROM node:20-alpine AS Runtime
 
 RUN apk add --no-cache curl jq
 
-COPY --from=Builder /indexchem/ .
+COPY --from=builder /indexchem/ ./
 
 ENV NODE_ENV=production
 

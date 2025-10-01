@@ -1,10 +1,10 @@
-# ⚪ Chemindex API
+# 🔹 Chemindex API
 
 A free API-driven system for managing chemical reagents and user access, designed to streamline inventory management in resource-constrained Science laboratories in South America. Built with **Node.js**, **Express**, and **MongoDB**, ChemIndex offers a modular and fully documentated role-based authenticated system access control (**Swagger**).
 
 ---
 
-## ⚪ Table of Contents
+## Table of Contents
 
 - [Main Features](#-features)
 - [Technologies](#️-technologies)
@@ -13,7 +13,7 @@ A free API-driven system for managing chemical reagents and user access, designe
 
 ---
 
-## ⚪ Main Features
+## Main Features
 
 - JWT-based authentication and routes protection.
 - Role-based access control (admin & user).
@@ -25,11 +25,11 @@ A free API-driven system for managing chemical reagents and user access, designe
 
 ---
 
-## ⚪ Note on Legacy Frontend Files
+## Note on Legacy Frontend Files
 
-The remote repository includes `views`, `HTML`, and `CSS` files, which are no longer actively used in the backend. These files represent the initial frontend implementation and are retained for historical reference, showcasing the project's early development. The modern frontend is being developed separately using **React** and **Vite** and will be hosted on a distinct domain.
+The remote repository includes `views`, `HTML`, and `CSS` files, which are no longer actively used in the backend. These files represent the initial frontend implementation (using view enginer) and are retained for historical reference, showcasing the project's early development. The corresponding frontend was developed separately using **React** and **Vite** and will be hosted on a distinct domain.
 
-## ⚪ Technologies Used
+## Technologies Used
 
 - **Node.js** + **Express.js** for backend.
 - **MongoDB** for NoSQL database with **mongoose** as ODM.
@@ -42,36 +42,36 @@ The remote repository includes `views`, `HTML`, and `CSS` files, which are no lo
 
 ---
 
-## ⚪ Getting Started
+## Getting Started
 
-## ⚪ Prerequisites
+## Prerequisites
 
 - Node.js (>= 18.x)
 - MongoDB (or local MongoDB instance)
 - Docker (optional for containerized deployment)
 
-## ⚪ Clone the repository and install dependencies
+## Clone the repository and install dependencies
 
 ```bash
 git clone https://github.com/your-username/chemindex.git
-cd chemindex
+cd indexchem
 npm install
 ```
 
-## ⚪ Run locally in containers (development mode)
+## Run locally in containers (development mode)
 
 ```bash
 docker compose --profile dev up --build -d
 ```
 
-## ⚪ Run tests
+## Run tests
 
 ```bash
 docker compose --profile stage up --build -d
 npm run test:coverage
 ```
 
-## ⚪ API Documentation (Swagger UI)
+## API Documentation (Swagger UI)
 
 Access the Swagger UI to explore and test the API:
 
