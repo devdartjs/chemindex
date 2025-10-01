@@ -8,6 +8,8 @@ COPY . .
 
 FROM node:20-alpine AS Runtime
 
+RUN apk add --no-cache curl jq
+
 COPY --from=Builder /indexchem/ .
 
 ENV NODE_ENV=development

@@ -81,7 +81,7 @@ app.use("/logout", (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404).render("404", { message: "Error 404: Page not Found" });
+  res.status(404).json({ message: "Error 404: Page not Found" });
 });
 
 app.listen(PORT, () => {

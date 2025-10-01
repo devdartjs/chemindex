@@ -6,13 +6,16 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "jest --coverage",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:watch": "jest --watch",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
     "prettier:write": "npx prettier --write .",
     "prettier:check": "npx prettier --check .",
     "create-admin": "node admin/sign-up-admin.js",
+    "index": "curl -i http://localhost:3000",
+    "seed:user": "curl -i -X POST http://localhost:3000/api/v1/users/auth/sign-up -H 'Content-Type: application/json' -d '{\"email\": \"test@example.com\", \"password\": \"password12345\"}'",
+    "user:login": "curl -i -s -c cookies.txt -X POST http://localhost:3000/api/v1/users/auth/login -H 'Content-Type: application/json' -d '{\"email\": \"test@example.com\", \"password\": \"password12345\"}'",
     "docs": "swagger-cli bundle -o swagger.json",
     "build": "rm -rf build && mkdir build && npx babel src --out-dir build --copy-files --verbose && find build -type f -name '*.js' -exec npx terser {} --output {} --compress --mangle --source-map \\;"
   },
