@@ -1,4 +1,6 @@
 import express from "express";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import helmet from "helmet";
 import setupSwagger from "../swagger.js";
 import cookieParser from "cookie-parser";
@@ -27,6 +29,16 @@ import setCORP from "./middlewares/mid-security/corp-middleware.js";
 
 const app = express();
 connectToMongoDB();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const viewPath = path.resolve(__dirname, "views");
+const publicPath = path.resolve("public");
+
+app.use(express.static(publicPath));
+
+app.set("view engine", "ejs");
+app.set("views", viewPath);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -81,7 +93,7 @@ app.use("/logout", (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Error 404: Page not Found" });
+  res.status(404).render("404", { message: "Error 404: Page not Found" });
 });
 
 app.listen(PORT, () => {

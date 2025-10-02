@@ -1,4 +1,5 @@
 import User from "../../../models/user-model.js";
+import bcrypt from "bcryptjs";
 
 const createUser = async (req, res) => {
   try {
@@ -15,22 +16,31 @@ const createUser = async (req, res) => {
 
     const sanitizedEmail = email.trim().toLowerCase();
 
-    const existingUser = await User.findOne({ email: sanitizedEmail });
+    if (password.length < 6) {
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 6 characters long" });
+    }
 
+    const existingUser = await User.findOne({ email: sanitizedEmail }).lean();
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const userAdmin = await User.create({
       email: sanitizedEmail,
-      password: password,
+      password: hashedPassword,
     });
 
     if (!userAdmin) {
       throw new Error("Error while creating new user");
     }
 
-    res.status(200).json({ userAdmin });
+    const { ...userWithoutPassword } = userAdmin.toObject();
+
+    return res.status(201).json({ user: userWithoutPassword });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

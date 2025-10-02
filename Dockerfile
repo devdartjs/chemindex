@@ -5,19 +5,16 @@ COPY package.json .
 RUN npm install
 
 COPY . .
+RUN npm run build
 
 FROM node:20-alpine AS Runtime
 
 RUN apk add --no-cache curl jq
 
-COPY --from=Builder /indexchem/ .
+COPY --from=builder /indexchem/ ./
 
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 
-EXPOSE 3000
+EXPOSE 7000
 
-CMD ["node", "src/app.js"]
-
-#docker build -t chemindex .
-#docker run -p 3000:3000 -v $(pwd):/indexchem --env NODE_ENV=development chemindex
-
+CMD ["node", "build/app.js"]

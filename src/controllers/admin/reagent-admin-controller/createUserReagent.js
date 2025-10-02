@@ -1,36 +1,48 @@
-import mongoose from "mongoose";
+import { z } from "zod";
+import { Types } from "mongoose";
 import User from "../../../models/user-model.js";
 import Reagent from "../../../models/reagents-model.js";
 
+const createUserReagentParamsSchema = z.object({
+  userId: z
+    .string()
+    .refine(id => Types.ObjectId.isValid(id), { message: "Invalid user ID" }),
+});
+
+const createUserReagentBodySchema = z.object({
+  casNumber: z.string().min(1, "CAS number is required"),
+});
+
 const createUserReagent = async (req, res) => {
   try {
-    const { userId } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: "Invalid user ID" });
-    }
+    const { userId } = createUserReagentParamsSchema.parse(req.params);
+    const body = createUserReagentBodySchema.parse(req.body);
 
     const user = await User.findOne({
-      _id: new mongoose.Types.ObjectId(userId),
+      _id: Types.ObjectId.createFromHexString(userId),
       status: "user",
     });
 
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    const { casNumber } = req.body;
-
-    if (!casNumber)
-      return res.status(400).json({ message: "Missing required fields" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     const newReagent = await Reagent.create({
-      ...req.body,
+      ...body,
       createdBy: user._id,
     });
 
-    if (!newReagent) throw new Error("Error while creating user reagent");
+    if (!newReagent) {
+      throw new Error("Error while creating user reagent");
+    }
 
-    res.status(201).json({ message: "Reagent created", reagent: newReagent });
+    return res
+      .status(201)
+      .json({ message: "Reagent created", reagent: newReagent });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ errors: error.errors });
+    }
     return res.status(500).json({ error: error.message });
   }
 };
