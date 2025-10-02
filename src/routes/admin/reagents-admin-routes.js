@@ -1,6 +1,6 @@
 import { Router } from "express";
 import getAllReagents from "../../controllers/admin/reagent-admin-controller/getAllReagents.js";
-import getUserReagents from "../../controllers/admin/reagent-admin-controller/getUserReagent.js";
+import getUserReagents from "../../controllers/admin/reagent-admin-controller/getUserReagents.js";
 import getUserReagent from "../../controllers/admin/reagent-admin-controller/getUserReagent.js";
 import createUserReagent from "../../controllers/admin/reagent-admin-controller/createUserReagent.js";
 import { updateReagent } from "../../controllers/reagents-user-controller/updateReagent.js";

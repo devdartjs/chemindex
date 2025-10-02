@@ -4,12 +4,31 @@ const createUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const existingUser = await User.findOne({ email: email.trim() });
-    if (existingUser)
-      return res.status(400).json({ message: "User already exists" });
+    if (
+      !email ||
+      typeof email !== "string" ||
+      !password ||
+      typeof password !== "string"
+    ) {
+      return res.status(400).json({ message: "Invalid input data" });
+    }
 
-    const userAdmin = await User.create({ email, password });
-    if (!userAdmin) throw new Error("Error while creating new user");
+    const sanitizedEmail = email.trim().toLowerCase();
+
+    const existingUser = await User.findOne({ email: sanitizedEmail });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    const userAdmin = await User.create({
+      email: sanitizedEmail,
+      password: password,
+    });
+
+    if (!userAdmin) {
+      throw new Error("Error while creating new user");
+    }
 
     res.status(200).json({ userAdmin });
   } catch (error) {
