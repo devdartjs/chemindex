@@ -53,8 +53,8 @@ The remote repository includes `views`, `HTML`, and `CSS` files, which are no lo
 ## Clone the repository and install dependencies
 
 ```bash
-git clone https://github.com/your-username/chemindex.git
-cd indexchem
+git clone https://github.com/devdartjs/chemindex.git
+cd chemindex
 npm install
 ```
 
