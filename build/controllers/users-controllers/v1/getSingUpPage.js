@@ -1,0 +1,1 @@
+export const getSingUpPage=(e,n)=>n.status(200).render("sign-up",{nonce:n.locals.nonce,user:n.locals.user});

@@ -1,5 +1,1 @@
-const setCORP = (req, res, next) => {
-  res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
-  next();
-};
-export default setCORP;
+const setCORP=(e,s,o)=>{s.setHeader("Cross-Origin-Resource-Policy","same-origin"),o()};export default setCORP;

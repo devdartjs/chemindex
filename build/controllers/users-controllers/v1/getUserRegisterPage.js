@@ -1,0 +1,1 @@
+export const getUserRegisterPage=async(e,s)=>s.status(200).render("register",{nonce:s.locals.nonce,user:s.locals.user});

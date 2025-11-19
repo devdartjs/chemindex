@@ -1,0 +1,1 @@
+{"version":3,"names":["getSingUpPage","req","res","status","render","nonce","locals","user"],"sources":["build/controllers/users-controllers/v1/getSingUpPage.js"],"mappings":"OAAO,MAAMA,cAAgB,CAACC,EAAKC,IAC1BA,EAAIC,OAAO,KAAKC,OAAO,UAAW,CACvCC,MAAOH,EAAII,OAAOD,MAClBE,KAAML,EAAII,OAAOC","ignoreList":[]}

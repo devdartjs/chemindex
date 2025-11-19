@@ -1,0 +1,1 @@
+export const getLoginPage=(e,n)=>n.status(200).render("login",{nonce:n.locals.nonce,user:n.locals.user});

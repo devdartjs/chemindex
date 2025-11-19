@@ -1,18 +1,1 @@
-import Reagent from "../../../models/reagents-model.js";
-const getAllReagents = async (req, res) => {
-  try {
-    const allReagents = await Reagent.find();
-    if (!allReagents || allReagents.length === 0) return res.status(400).json({
-      message: "There is no reagents here"
-    });
-    res.status(200).json({
-      totalReagentsAdmin: allReagents.length,
-      allReagents
-    });
-  } catch (error) {
-    return res.status(500).json({
-      error: error.message
-    });
-  }
-};
-export default getAllReagents;
+import Reagent from"../../../models/reagents-model.js";const getAllReagents=async(e,t)=>{try{const e=await Reagent.find();if(!e||0===e.length)return t.status(400).json({message:"There is no reagents here"});t.status(200).json({totalReagentsAdmin:e.length,allReagents:e})}catch(e){return t.status(500).json({error:e.message})}};export default getAllReagents;

@@ -1,14 +1,1 @@
-export const checkAdmin = (req, res, next) => {
-  try {
-    if (!res.locals.user && res.locals.user.status !== "admin") {
-      return res.status(403).json({
-        message: "Access denied: Admins only"
-      });
-    }
-    next();
-  } catch (error) {
-    return res.status(500).json({
-      error: error.message
-    });
-  }
-};
+export const checkAdmin=(s,e,t)=>{try{if(!e.locals.user&&"admin"!==e.locals.user.status)return e.status(403).json({message:"Access denied: Admins only"});t()}catch(s){return e.status(500).json({error:s.message})}};

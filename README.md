@@ -38,7 +38,9 @@ The remote repository includes `views`, `HTML`, and `CSS` files, which are no lo
 - **Jest** for unit and integration tests.
 - **Docker** + **DockerHub** for containerization.
 - **GitHub Actions** for CI/CD pipeline.
-- **Custom middlewares** for security, input sanitation, and access control.
+- **Custom middlewares** for security, input sanitation,
+  and access control.
+- **SonarQube** and **Snyk** as SAST.
 
 ---
 

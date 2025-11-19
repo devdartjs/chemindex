@@ -1,0 +1,1 @@
+export const getLoginPagev2=(o,s)=>s.status(200).json({nonce:s.locals.nonce,user:s.locals.user});

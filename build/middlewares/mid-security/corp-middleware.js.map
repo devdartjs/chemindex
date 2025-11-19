@@ -1,0 +1,1 @@
+{"version":3,"names":["setCORP","req","res","next","setHeader"],"sources":["build/middlewares/mid-security/corp-middleware.js"],"mappings":"AAAA,MAAMA,QAAU,CAACC,EAAKC,EAAKC,KACzBD,EAAIE,UAAU,+BAAgC,eAC9CD,oBAEaH","ignoreList":[]}

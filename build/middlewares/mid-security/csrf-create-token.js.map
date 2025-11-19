@@ -1,0 +1,1 @@
+{"version":3,"names":["csrf","csrfProtection","cookie","httpOnly","secure","process","env","NODE_ENV"],"sources":["build/middlewares/mid-security/csrf-create-token.js"],"mappings":"OAAOA,SAAU,QACjB,MAAMC,eAAiBD,KAAK,CAC1BE,OAAQ,CACNC,UAAU,EACVC,OAAiC,eAAzBC,QAAQC,IAAIC,2BAGTN","ignoreList":[]}

@@ -1,0 +1,1 @@
+export const getDashboardReagents=async(e,s)=>s.status(200).render("dashboard-reagents",{nonce:s.locals.nonce,user:s.locals.user});

@@ -10,6 +10,7 @@ import { PORT, NODE_ENV } from "./config/config-env.js";
 import connectToMongoDB from "./database/mongodb.js";
 import authRouterState from "./routes/users-auth-routes.js";
 import usersRouter from "./routes/users-routes.js";
+import usersRouterv2 from "./routes/users-routes-v2.js";
 import reagentsRouter from "./routes/reagents-routes.js";
 import reagentsStateRouter from "./routes/reagents-state-routes.js";
 import csrfRouter from "./route-csurf/csurf-token.js";
@@ -55,6 +56,7 @@ const userValidation = validate({ body: userSchemaAccessValidator });
 const reagentValidation = validate({ body: reagentSchemaCreateValidator });
 
 app.use("/", checkUser, usersRouter);
+app.use("/v2", checkUser, usersRouterv2);
 app.use(
   "/api/v1/users/auth",
   sanitizeUsersInput,

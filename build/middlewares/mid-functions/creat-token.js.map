@@ -1,0 +1,1 @@
+{"version":3,"names":["jwt","JWT_SECRET","JWT_EXPIRES_IN","createToken","id","sign","expiresIn"],"sources":["build/middlewares/mid-functions/creat-token.js"],"mappings":"OAAOA,QAAS,sBACPC,WAAYC,mBAAsB,6BAC3C,MAAMC,YAAcC,GACXJ,IAAIK,KAAK,CACdD,MACCH,WAAY,CACbK,UAAWJ,gCAGAC","ignoreList":[]}

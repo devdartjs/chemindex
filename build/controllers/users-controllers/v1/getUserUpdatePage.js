@@ -1,0 +1,1 @@
+export const getUserUpdatePage=async(e,s)=>s.status(200).render("search-update",{nonce:s.locals.nonce,user:s.locals.user});

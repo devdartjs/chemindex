@@ -1,8 +1,1 @@
-export const getAdminPage = async (req, res) => {
-  res.status(200).json({
-    message: "Render Admin Page",
-    user: res.locals.user._id,
-    status: res.locals.user.status,
-    nonce: res.locals.nonce
-  });
-};
+export const getAdminPage=async(s,e)=>{e.status(200).json({message:"Render Admin Page",user:e.locals.user._id,status:e.locals.user.status,nonce:e.locals.nonce})};

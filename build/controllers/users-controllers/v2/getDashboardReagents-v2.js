@@ -1,0 +1,1 @@
+export const getDashboardReagentsv2=async(s,e)=>e.status(200).json({nonce:e.locals.nonce,user:e.locals.user});

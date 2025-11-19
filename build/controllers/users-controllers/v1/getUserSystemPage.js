@@ -1,0 +1,1 @@
+export const getUserSystemPage=async(e,s)=>s.status(200).render("user-system",{nonce:s.locals.nonce,user:s.locals.user});
