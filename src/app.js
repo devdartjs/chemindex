@@ -55,7 +55,7 @@ app.use(setCORP);
 const userValidation = validate({ body: userSchemaAccessValidator });
 const reagentValidation = validate({ body: reagentSchemaCreateValidator });
 
-app.use("/", checkUser, usersRouter);
+app.use("/", usersRouter);
 app.use("/v2", checkUser, usersRouterv2);
 app.use(
   "/api/v1/users/auth",
@@ -98,10 +98,15 @@ app.use((req, res) => {
   res.status(404).render("404", { message: "Error 404: Page not Found" });
 });
 
-app.listen(PORT, () => {
-  console.log(
-    `✅ Server running at port ${PORT} and ${NODE_ENV} mode on: http://localhost:${PORT}`
-  );
-});
+if (NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(
+      `✅ Server running at port ${PORT} and ${NODE_ENV} mode on: http://localhost:${PORT}`
+    );
+  });
+} else {
+  app.listen(PORT);
+  console.log("✅ Server running");
+}
 
 export default app;

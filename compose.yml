@@ -10,7 +10,7 @@ services:
       - PORT=3000
       - DB_URI=mongodb://mongo:27017/mongodb
       - JWT_SECRET=secret
-      - JWT_EXPIRES_IN=1000
+      - JWT_EXPIRES_IN=1d
     depends_on:
       - mongo
     networks:
@@ -48,7 +48,7 @@ services:
       - PORT=7000
       - DB_URI=mongodb://mongo:27017/mongodb
       - JWT_SECRET=secret
-      - JWT_EXPIRES_IN=1000
+      - JWT_EXPIRES_IN=1d
     depends_on:
       mongo:
         condition: service_healthy
