@@ -18,7 +18,6 @@ import adminRouter from "./routes/admin/admin-routes.js";
 import adminUsersRouter from "./routes/admin/users-admin-routes.js";
 import adminReagentsRouter from "./routes/admin/reagents-admin-routes.js";
 import { userSchemaAccessValidator } from "./middlewares/mid-clean-inputs/validate/users-validate.js";
-// import { reagentSchemaCreateValidator } from "./middlewares/mid-clean-inputs/validate/reagents-validate.js";
 import validate from "./middlewares/mid-clean-inputs/validate/schemas-validate.js";
 import { sanitizeUsersInput } from "./middlewares/mid-clean-inputs/sanitize/user-sanitize.js";
 import { escapeUserInput } from "./middlewares/mid-clean-inputs/escape/user-escape.js";
@@ -53,7 +52,6 @@ setupSwagger(app);
 app.use(setCORP);
 
 const userValidation = validate({ body: userSchemaAccessValidator });
-// const reagentValidation = validate({ body: reagentSchemaCreateValidator });
 
 app.use("/", usersRouter);
 app.use("/v2", checkUser, usersRouterv2);
@@ -69,7 +67,6 @@ app.use(
   "/api/v1/reagents/auth/:userId",
   checkUser,
   authentication,
-  // reagentValidation,
   reagentsStateRouter
 );
 app.use("/api/v1/admin", adminRouter);

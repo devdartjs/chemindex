@@ -11,11 +11,11 @@ csrfRouter.get("/csrf-token", csrfProtection, csrfErrorHandler, (req, res) => {
       console.error("CSRF token not found in request.");
       return res.status(400).json({ error: "CSRF token not found" });
     }
-    console.log("CSRF Token generated:", csrf);
+    console.log("CSRF Token generated:");
 
     res.status(200).json({ csrf });
   } catch (error) {
-    console.error("Error generating CSRF token:", error);
+    console.error("Error generating CSRF token:");
     res.status(500).json({ error: "Internal Server Error" });
   } finally {
     console.log("CSRF token request completed.");

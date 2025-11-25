@@ -9,7 +9,7 @@ export function validate(schemas = {}) {
       if (schema) {
         const { error, value } = schema.validate(req[part], {
           abortEarly: false,
-          stripUnknown: false, // remove extre fields
+          stripUnknown: false,
         });
 
         if (error) {
@@ -20,7 +20,7 @@ export function validate(schemas = {}) {
           });
         }
 
-        req[part] = value; // re-write clean data
+        req[part] = value;
         console.log("value:", value);
       }
     }

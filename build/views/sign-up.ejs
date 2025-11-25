@@ -46,7 +46,6 @@
             const csrfToken = csrfData.csrf;
 
             if (!csrfToken) {
-              console.log("Invalid csrf Token");
               throw new Error("Invalid csrf Token");
             }
 
@@ -70,7 +69,6 @@
             }
 
             if (data.user) {
-              console.log("Successful registration!");
               alert("Successful registration!");
               location.assign("/dashboard-reagents");
             }

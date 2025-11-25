@@ -101,6 +101,7 @@ jobs:
           tags: |
             dartw/chemindex:latest
             dartw/chemindex:${{ env.VERSION }}
+            dartw/chemindex:sha-${{ github.sha }}
 
       - name: Cleanup .env
         run: rm -f .env

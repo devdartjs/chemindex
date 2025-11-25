@@ -1,7 +1,11 @@
 import { config } from "dotenv";
 
-const envPath = `.env.${process.env.NODE_ENV || "development"}.local`;
-config({ path: envPath });
+if (process.env.NODE_ENV !== "production") {
+  const envPath = `.env.${process.env.NODE_ENV || "development"}.local`;
+  config({ path: envPath });
+} else {
+  config();
+}
 
 export const {
   PORT,

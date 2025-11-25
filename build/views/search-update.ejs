@@ -234,7 +234,7 @@
             reagent.furtherInformations || "";
         }
 
-        searchButton.addEventListener("click", async (e) => {
+        searchButton.addEventListener("click", async e => {
           e.preventDefault();
 
           const casNumber = document
@@ -304,7 +304,7 @@
           }
         });
 
-        updateButton.addEventListener("click", async (e) => {
+        updateButton.addEventListener("click", async e => {
           e.preventDefault();
 
           const casNumber = document
@@ -350,8 +350,6 @@
             const csrf = await validateCasNumberAndGetToken(casNumber);
             if (!csrf)
               return alert("CSRF token not found. Please reload the page.");
-            //antes do fetch é preciso garantir validação de todos os dados a serem enviados para o backend
-            //não apenas o casNumber e sim todos.
 
             const response = await fetch(
               `/api/v1/reagents/auth/${userId}/${casNumber}`,
@@ -378,7 +376,7 @@
           }
         });
 
-        deleteButton.addEventListener("click", async (e) => {
+        deleteButton.addEventListener("click", async e => {
           e.preventDefault();
 
           const casNumber = document
