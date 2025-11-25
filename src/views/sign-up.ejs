@@ -29,7 +29,7 @@
         const emailErrorS = document.querySelector(".email-error-signup");
         const passwordErrorS = document.querySelector(".password-error-signup");
 
-        formS.addEventListener("submit", async (e) => {
+        formS.addEventListener("submit", async e => {
           e.preventDefault();
 
           const email = formS.email.value;
@@ -71,7 +71,8 @@
 
             if (data.user) {
               console.log("Successful registration!");
-              location.assign("/");
+              alert("Successful registration!");
+              location.assign("/dashboard-reagents");
             }
           } catch (error) {
             console.log("Registration Error:", error);
