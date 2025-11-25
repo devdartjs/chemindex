@@ -64,8 +64,7 @@
       "dashboard-reagents-quantity"
     );
     const paginationContainer = document.getElementById("pagination-controls");
-    const userId = "<%= user._id %>";
-    console.log("User ID:", userId);
+    const userId = "<%= user._id %>";    
 
     if (!userId) {
       listContainer.innerHTML = "<p>User not found.</p>";
@@ -80,8 +79,7 @@
         const response = await fetch(
           `/api/v1/reagents/${userId}?page=${page}&limit=${limit}`
         );
-        const data = await response.json();
-        console.log("Fetched reagents data:", data);
+        const data = await response.json();        
 
         if (!response.ok) {
           listContainer.innerHTML = `<p>${data.message}</p>`;
@@ -123,7 +121,7 @@
           deleteBtn.className = "button-component";
           deleteBtn.textContent = "🗑️";
           deleteBtn.addEventListener("click", () => {
-            console.log(`Delete button clicked for CAS: ${casNumber}`);
+            
             handleDeleteReagent(userId, casNumber);
           });
 
@@ -176,22 +174,19 @@
     }
 
     async function handleDeleteReagent(userId, casNumber) {
-      console.log(`Attempting to delete reagent with CAS: ${casNumber} for user: ${userId}`);
+      
       if (!confirm("Are you sure you want to delete this reagent?")) return;
 
       try {
-        console.log(`Deleting reagent with CAS: ${casNumber} for user: ${userId}`);
+        
         const response = await fetch(
           `/api/v1/reagents/auth/${userId}/${casNumber}`,
           {
             method: "DELETE",
           }
-        );
+        );        
 
-        console.log("Delete response info:", response);
-
-        const data = await response.json();
-        console.log("Delete response data:", data);
+        const data = await response.json();        
 
         if (!response.ok) {
           alert(data.message || "Error deleting reagent.");

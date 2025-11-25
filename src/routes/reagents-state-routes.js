@@ -4,6 +4,9 @@ import escapeReagentInput from "../middlewares/mid-clean-inputs/escape/reagent-e
 import createReagent from "../controllers/reagents-user-controller/createReagent.js";
 import updateReagent from "../controllers/reagents-user-controller/updateReagent.js";
 import deleteReagent from "../controllers/reagents-user-controller/deleteReagent.js";
+import { reagentSchemaCreateValidator } from "../middlewares/mid-clean-inputs/validate/reagents-validate.js";
+import validate from "../middlewares/mid-clean-inputs/validate/schemas-validate.js";
+const reagentValidation = validate({ body: reagentSchemaCreateValidator });
 
 const reagentsStateRouter = Router();
 
@@ -11,12 +14,14 @@ reagentsStateRouter.post(
   "/",
   sanitizeReagentInput,
   escapeReagentInput,
+  reagentValidation,
   createReagent
 );
 reagentsStateRouter.put(
   "/:casNumber",
   sanitizeReagentInput,
   escapeReagentInput,
+  reagentValidation,
   updateReagent
 );
 reagentsStateRouter.delete("/:casNumber", deleteReagent);

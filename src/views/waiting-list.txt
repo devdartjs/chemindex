@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="min-h-screen">
+      <div class="waiting-list-container">
+        <h1>Account Update</h1>
+        <p>To create more reagents, you need to update your account.</p>
+
+        <form id="waiting-list-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required />
+            <span class="email-error" style="color: red"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required />
+            <span class="password-error" style="color: red"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="comment">Comment</label>
+            <textarea id="comment" rows="4" required></textarea>
+            <span class="comment-error" style="color: red"></span>
+          </div>
+
+          <button type="submit" id="submit-button">Submit Request</button>
+        </form>
+
+        <p class="mt-4">Back to <a href="/" class="link-home">home page</a></p>
+      </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("#waiting-list-form");
+        const emailError = document.querySelector(".email-error");
+        const passwordError = document.querySelector(".password-error");
+        const commentError = document.querySelector(".comment-error");
+
+        let csrfToken = null;
+
+        // Simulates retrieving the CSRF token
+        const fetchCsrfToken = async () => {
+          try {
+            // In a real environment, this would be an API call
+            // const response = await fetch('/api/v1/token/csrf-token');
+            // const data = await response.json();
+            // return data.csrf;
+
+            // Simulation for this example
+            console.log("CSRF token successfully retrieved");
+            return "csrf-token-placeholder";
+          } catch (error) {
+            console.error("Error retrieving CSRF token:", error);
+            alert("Could not retrieve security token.");
+            return null;
+          }
+        };
+
+        // Initialize CSRF token retrieval when page loads
+        (async () => {
+          csrfToken = await fetchCsrfToken();
+        })();
+
+        form.addEventListener("submit", async e => {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const comment = document.getElementById("comment").value;
+
+          // Clear previous error messages
+          emailError.textContent = "";
+          passwordError.textContent = "";
+          commentError.textContent = "";
+
+          // Simple validation
+          let hasErrors = false;
+
+          if (!email) {
+            emailError.textContent = "Email is required";
+            hasErrors = true;
+          }
+
+          if (!password) {
+            passwordError.textContent = "Password is required";
+            hasErrors = true;
+          }
+
+          if (!comment) {
+            commentError.textContent = "Comment is required";
+            hasErrors = true;
+          }
+
+          if (!hasErrors) {
+            try {
+              if (!csrfToken) {
+                csrfToken = await fetchCsrfToken();
+                if (!csrfToken) {
+                  throw new Error("Could not retrieve security token");
+                }
+              }
+
+              // In a real environment, this would be an API call
+              /* 
+                    const response = await fetch('/api/v1/waiting-list', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken 
+                    },
+                    body: JSON.stringify({ email, password, comment })
+                    });
+                    
+                    const data = await response.json();
+                    */
+
+              // Simulation of successful submission
+              alert("Request submitted! We will contact you soon.");
+
+              // Clear the form after successful submission
+              form.reset();
+            } catch (error) {
+              console.error("Error submitting form:", error);
+              alert("Could not submit the form. Please try again later.");
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
