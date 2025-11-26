@@ -64,3 +64,4 @@ docker-compose.yml
 docker-compose.dev.yml
 
 admin/
+sonar-project.properties
